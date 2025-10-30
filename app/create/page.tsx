@@ -448,6 +448,7 @@ export default function CreatePage() {
                   
                   <CardContent>
                     {/* Mobile 3D FlipBook (react-pageflip) */}
+                    <div className="mx-auto" style={{ width: 300, height: 480 }}>
                     <AiStoryBook
                       pages={[
                         { image: storybookData.coverImage, text: `${storybookData.title}\n${storybookData.summary}`, bg: "#fff" },
@@ -457,6 +458,7 @@ export default function CreatePage() {
                       height={480}
                     
                     />
+                    </div>
                     
                     {/* Page Counter */}
                     <div className="text-center mt-4 text-xs text-gray-600 dark:text-gray-300">
@@ -576,6 +578,7 @@ export default function CreatePage() {
                 
                 <CardContent>
                   {/* Desktop 3D FlipBook (react-pageflip) */}
+                  <div className="mx-auto" style={{ width: 320, height: 480 }}>
                   <AiStoryBook
                     pages={[
                       { image: storybookData.coverImage, text: `${storybookData.title}\n${storybookData.summary}`, bg: "#fff" },
@@ -585,6 +588,7 @@ export default function CreatePage() {
                     height={480}
                    
                   />
+                  </div>
                 </CardContent>
               </Card>
             </div>
