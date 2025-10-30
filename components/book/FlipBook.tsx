@@ -59,10 +59,27 @@ export default function FlipBook({ pages, width = 600, height = 500, onFlip }: {
                     <div className="absolute inset-y-0 right-0 w-3 bg-gradient-to-l from-white/60 to-transparent pointer-events-none translate-x-[2px]" />
                   </div>
                 ) : (
-                  <div className="relative p-6 pr-8 flex items-center justify-center h-full bg-gradient-to-br from-amber-50 to-white rounded-md shadow-inner">
-                    <div className="prose dark:prose-invert max-w-none">
-                      <p className="text-amber-900 text-xl leading-8 text-justify indent-8 whitespace-pre-wrap break-words">{p.text}</p>
-                    </div>
+                  <div className="relative p-6 pr-8 flex items-start justify-start h-full bg-gradient-to-br from-amber-50 to-white rounded-md shadow-inner">
+                    {(() => {
+                      const raw = String(p.text || '');
+                      const plainLen = raw.replace(/\s+/g, '').length;
+                      // 动态字号与行高：内容少 → 字号大；内容多 → 字号小，提升填充度
+                      let sizeCls = "text-base leading-7";
+                      if (plainLen <= 80) sizeCls = "text-lg leading-8";
+                      else if (plainLen <= 160) sizeCls = "text-base leading-7";
+                      else if (plainLen <= 280) sizeCls = "text-sm leading-7";
+                      else sizeCls = "text-xs leading-6";
+                      return (
+                        <div className={`w-full text-amber-900 ${sizeCls} whitespace-pre-line break-words text-justify`}> 
+                          {raw
+                            .split(/\n{1,}/)
+                            .filter(Boolean)
+                            .map((para, i) => (
+                              <p key={i} className="mb-3 last:mb-0 hyphens-auto">{para}</p>
+                            ))}
+                        </div>
+                      );
+                    })()}
                   </div>
                 )}
               </>
