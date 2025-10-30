@@ -15,6 +15,8 @@ interface StoryItem {
   icon: string;
   featured: boolean;
   bookcontent: string;
+  slug?: string;
+  data?: any;
 }
 
 export default function StoryBookPlaza() {
@@ -24,21 +26,24 @@ export default function StoryBookPlaza() {
   const [stories, setStories] = useState<StoryItem[]>([]);
   const [thumbs, setThumbs] = useState<Record<string, string>>({});
 
-  // Fetch list from backend/DB
+  // Fetch list from backend/DB - only admin-published books (is_admin = 1)
   useEffect(() => {
     let active = true;
     (async () => {
       try {
-        let url = "/api/storybooks";
-        try {
-          const t = localStorage.getItem("sb_guest_token");
-          if (t) url = `/api/storybooks?guestToken=${encodeURIComponent(t)}`;
-        } catch {}
-        const res = await fetch(url, { cache: "no-store" });
+        const res = await fetch("/api/storybooks", { cache: "no-store" });
         const data = await res.json();
-        // Expect data as array of StoryItem-like objects
-        if (active) setStories(Array.isArray(data) ? data : []);
-      } catch {
+        
+        // Check for error response
+        if (data.error) {
+          console.error("API Error:", data.error);
+          if (active) setStories([]);
+        } else {
+          // Expect data as array of StoryItem-like objects
+          if (active) setStories(Array.isArray(data) ? data : []);
+        }
+      } catch (error) {
+        console.error("Fetch Error:", error);
         if (active) setStories([]);
       } finally {
         if (active) setLoading(false);
@@ -54,24 +59,31 @@ export default function StoryBookPlaza() {
   // resolve thumbnails from bookcontent json (if provided)
   useEffect(() => {
     (async () => {
-      const entries = await Promise.allSettled(
-        stories.map(async (s) => {
-          if (!s.bookcontent) return [s.id, ""] as const;
-          try {
-            const res = await fetch(s.bookcontent, { cache: "force-cache" });
-            const json = await res.json();
-            const cover: string = json.coverImage || json.images?.[0] || "";
-            return [s.id, cover] as const;
-          } catch {
-            return [s.id, ""] as const;
-          }
-        })
-      );
       const map: Record<string, string> = {};
-      for (const r of entries) {
-        if (r.status === "fulfilled") {
-          const [id, url] = r.value;
-          if (url) map[id] = url;
+      const needFetch: StoryItem[] = [];
+      for (const s of stories) {
+        const cover = s?.data?.coverImage || s?.data?.images?.[0];
+        if (cover) map[s.id] = cover;
+        else if (s.bookcontent) needFetch.push(s);
+      }
+      if (needFetch.length > 0) {
+        const entries = await Promise.allSettled(
+          needFetch.map(async (s) => {
+            try {
+              const res = await fetch(s.bookcontent, { cache: "force-cache" });
+              const json = await res.json();
+              const cover: string = json.coverImage || json.images?.[0] || "";
+              return [s.id, cover] as const;
+            } catch {
+              return [s.id, ""] as const;
+            }
+          })
+        );
+        for (const r of entries) {
+          if (r.status === "fulfilled") {
+            const [id, url] = r.value;
+            if (url) map[id] = url;
+          }
         }
       }
       setThumbs(map);
@@ -124,7 +136,7 @@ export default function StoryBookPlaza() {
                     </div>
                     <div className="absolute inset-x-0 bottom-0 p-2 flex items-center justify-between bg-gradient-to-t from-black/40 to-transparent">
                       <div className="flex items-center space-x-2">
-                        <Button variant="outline" size="sm" onClick={()=>router.push(`/story-book/${s.id}`)} className="backdrop-blur bg-white/80">
+                        <Button variant="outline" size="sm" onClick={()=>router.push(`/story-book/${(s as any).slug || s.id}`)} className="backdrop-blur bg-white/80">
                           <Eye className="h-4 w-4 mr-1" />Read
                         </Button>
                         <Button size="sm" onClick={()=>router.push('/create')} className="backdrop-blur bg-primary text-primary-foreground">

@@ -22,7 +22,7 @@ const idToPath: Record<string, string> = {
 export default function StoryBookReaderPage() {
   const params = useParams();
   const router = useRouter();
-  const id = String(params?.id || "sample");
+  const slug = String(params?.slug || "");
   const [data, setData] = useState<SB | null>(null);
   const [bookPath, setBookPath] = useState<string | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
@@ -30,12 +30,17 @@ export default function StoryBookReaderPage() {
 
   useEffect(() => {
     let active = true;
+    if (!slug) return;
     (async () => {
       try {
-        const metaRes = await fetch(`/api/storybooks/${id}`, { cache: "no-store" });
+        const metaRes = await fetch(`/api/storybooks/${slug}`, { cache: "no-store" });
         const meta = await metaRes.json();
-        const path = meta?.bookcontent || idToPath[id];
+        const path = meta?.bookcontent || idToPath[slug];
         if (active) setBookPath(path);
+        if (meta?.data) {
+          if (active) setData(meta.data as SB);
+          return;
+        }
         if (path) {
           const res = await fetch(path, { cache: "no-store" });
           const j = await res.json();
@@ -44,7 +49,7 @@ export default function StoryBookReaderPage() {
       } catch {}
     })();
     return () => { active = false; };
-  }, [id]);
+  }, [slug]);
 
   // Responsive size (same as generator viewer)
   useEffect(() => {
@@ -95,5 +100,4 @@ export default function StoryBookReaderPage() {
     </div>
   );
 }
-
 

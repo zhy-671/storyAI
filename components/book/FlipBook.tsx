@@ -59,23 +59,34 @@ export default function FlipBook({ pages, width = 600, height = 500, onFlip }: {
                     <div className="absolute inset-y-0 right-0 w-3 bg-gradient-to-l from-white/60 to-transparent pointer-events-none translate-x-[2px]" />
                   </div>
                 ) : (
-                  <div className="relative p-6 pr-8 flex items-start justify-start h-full bg-gradient-to-br from-amber-50 to-white rounded-md shadow-inner">
+                  <div className="relative p-8 pr-10 flex items-start justify-start h-full bg-gradient-to-br from-amber-50 to-white rounded-md shadow-inner">
                     {(() => {
                       const raw = String(p.text || '');
                       const plainLen = raw.replace(/\s+/g, '').length;
-                      // 动态字号与行高：内容少 → 字号大；内容多 → 字号小，提升填充度
-                      let sizeCls = "text-base leading-7";
-                      if (plainLen <= 80) sizeCls = "text-lg leading-8";
-                      else if (plainLen <= 160) sizeCls = "text-base leading-7";
-                      else if (plainLen <= 280) sizeCls = "text-sm leading-7";
-                      else sizeCls = "text-xs leading-6";
+                      // 检测是否为英文内容（简单判断：非中文字符占比 > 70%）
+                      const isEnglish = (raw.match(/[a-zA-Z]/g)?.length || 0) / Math.max(plainLen, 1) > 0.7;
+                      
+                      // 动态字号与行高：内容少 → 字号大；内容多 → 字号小
+                      let sizeCls = "text-base leading-[1.8]";
+                      if (plainLen <= 80) sizeCls = "text-lg leading-[2.0]";
+                      else if (plainLen <= 160) sizeCls = "text-base leading-[1.8]";
+                      else if (plainLen <= 280) sizeCls = "text-sm leading-[1.7]";
+                      else sizeCls = "text-xs leading-[1.6]";
+                      
+                      // 英文书籍排版：serif 字体、左对齐、段落间距（无首行缩进）、适当的字间距
+                      const textStyle = isEnglish 
+                        ? `${sizeCls} font-serif text-left tracking-wide`
+                        : `${sizeCls} text-justify`;
+                      
                       return (
-                        <div className={`w-full text-amber-900 ${sizeCls} whitespace-pre-line break-words text-justify`}> 
+                        <div className={`w-full text-amber-900 ${textStyle} whitespace-pre-line break-words`}> 
                           {raw
                             .split(/\n{1,}/)
                             .filter(Boolean)
                             .map((para, i) => (
-                              <p key={i} className="mb-3 last:mb-0 hyphens-auto">{para}</p>
+                              <p key={i} className={`${isEnglish ? 'mb-4 last:mb-0' : 'mb-3 last:mb-0'} hyphens-auto`}>
+                                {para}
+                              </p>
                             ))}
                         </div>
                       );

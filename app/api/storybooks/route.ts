@@ -1,33 +1,24 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { generateSlug } from "@/utils/slug";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const guestToken = searchParams.get("guestToken");
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
-  const query = supabase
+  // Query only admin-published storybooks (is_admin = 1)
+  // No need to check login status, just show all admin-published books
+  // Include slug if column exists (will work after migration)
+  const { data, error } = await supabase
     .from("storybooks")
-    .select("id,title,description,icon,featured,bookcontent")
+    .select("id,title,description,icon,featured,bookcontent,data,slug")
+    .eq("is_admin", 1)
     .order("created_at", { ascending: false });
 
-  if (user) {
-    query.or(`user_id.eq.${user.id}${guestToken ? ",guest_token.eq." + guestToken : ""}`);
-  } else if (guestToken) {
-    query.eq("guest_token", guestToken);
-  } else {
-    // public showcase fallback (no user, no token) → return demo items
-    return NextResponse.json([
-      { id: "cat", title: "Sunny Kitten", description: "A warm bedtime picture book about a smiling kitten", icon: "🐱", featured: true, bookcontent: "/samples/storybook_sample_cat.json" },
-      { id: "sample", title: "Star Lamp in the Ruins", description: "A healing story about light and courage", icon: "⭐", featured: true, bookcontent: "/samples/storybook_sample.json" },
-    ]);
+  if (error) {
+    console.error("[API] Storybooks query error:", error);
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
-
-  const { data, error } = await query;
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  console.log("[API] Storybooks query result:", { count: data?.length || 0 });
   return NextResponse.json(data ?? []);
 }
 
@@ -44,8 +35,31 @@ export async function POST(request: Request) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const insert = {
-    title: meta?.title ?? storybook.title ?? "Untitled",
+  // Generate slug from title (only if slug column exists)
+  const title = meta?.title ?? storybook.title ?? "Untitled";
+  let slug = meta?.slug || generateSlug(title);
+  
+  // Try to ensure slug is unique (only if slug column exists)
+  if (slug) {
+    try {
+      const { data: existing } = await supabase
+        .from("storybooks")
+        .select("slug")
+        .eq("slug", slug)
+        .limit(1);
+      
+      if (existing && existing.length > 0) {
+        // If slug exists, append timestamp to make it unique
+        slug = `${slug}-${Date.now()}`;
+      }
+    } catch {
+      // Slug column doesn't exist yet, skip slug uniqueness check
+      slug = null;
+    }
+  }
+
+  const insert: any = {
+    title,
     description: meta?.description ?? storybook.summary ?? "",
     icon: meta?.icon ?? "📖",
     featured: !!meta?.featured,
@@ -53,7 +67,13 @@ export async function POST(request: Request) {
     data: storybook,
     guest_token: user ? null : guestToken ?? null,
     user_id: user ? user.id : null,
-  } as any;
+    is_admin: meta?.is_admin !== undefined ? (meta.is_admin ? 1 : 0) : 0,
+  };
+  
+  // Only include slug if column exists (will work after migration)
+  if (slug) {
+    insert.slug = slug;
+  }
 
   const { data, error } = await supabase.from("storybooks").insert(insert).select("id").single();
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
