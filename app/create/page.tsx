@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/use-user";
@@ -25,6 +25,10 @@ export default function CreatePage() {
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedSamplePath, setSelectedSamplePath] = useState<string | null>(null);
   const [coverLoaded, setCoverLoaded] = useState(false);
+  const mobileBoxRef = useRef<HTMLDivElement | null>(null);
+  const desktopBoxRef = useRef<HTMLDivElement | null>(null);
+  const [mobileW, setMobileW] = useState<number>(0);
+  const [desktopW, setDesktopW] = useState<number>(0);
 
   const preloadCover = (url?: string | null) => {
     if (!url) return;
@@ -35,6 +39,22 @@ export default function CreatePage() {
       img.src = url;
     } catch {}
   };
+
+  useEffect(() => {
+    const mob = new ResizeObserver((entries) => {
+      for (const e of entries) {
+        if (e.contentRect.width) setMobileW(e.contentRect.width);
+      }
+    });
+    const desk = new ResizeObserver((entries) => {
+      for (const e of entries) {
+        if (e.contentRect.width) setDesktopW(e.contentRect.width);
+      }
+    });
+    if (mobileBoxRef.current) mob.observe(mobileBoxRef.current);
+    if (desktopBoxRef.current) desk.observe(desktopBoxRef.current);
+    return () => { mob.disconnect(); desk.disconnect(); };
+  }, []);
 
   const handleCreateStory = async () => {
     if (!storyPrompt.trim()) {
@@ -448,16 +468,18 @@ export default function CreatePage() {
                   
                   <CardContent>
                     {/* Mobile 3D FlipBook (react-pageflip) */}
-                    <div className="mx-auto" style={{ width: 300, height: 480 }}>
+                    <div ref={mobileBoxRef} className="mx-auto w-full">
+                    <div style={{ width: '100%', height: Math.round((mobileW || 300) * 1.5) }}>
                     <AiStoryBook
                       pages={[
                         { image: storybookData.coverImage, text: `${storybookData.title}\n${storybookData.summary}`, bg: "#fff" },
                         ...((storybookData.pages || []).map((p: any) => ({ image: p.image, text: p.text, bg: "#fff" })))
                       ]}
-                      width={300}
-                      height={480}
+                      width={mobileW || 300}
+                      height={Math.round((mobileW || 300) * 1.5)}
                     
                     />
+                    </div>
                     </div>
                     
                     {/* Page Counter */}
@@ -578,16 +600,17 @@ export default function CreatePage() {
                 
                 <CardContent>
                   {/* Desktop 3D FlipBook (react-pageflip) */}
-                  <div className="mx-auto" style={{ width: 320, height: 480 }}>
-                  <AiStoryBook
-                    pages={[
-                      { image: storybookData.coverImage, text: `${storybookData.title}\n${storybookData.summary}`, bg: "#fff" },
-                      ...((storybookData.pages || []).map((p: any) => ({ image: p.image, text: p.text, bg: "#fff" })))
-                    ]}
-                    width={320}
-                    height={480}
-                   
-                  />
+                  <div ref={desktopBoxRef} className="mx-auto w-full">
+                    <div style={{ width: '100%', height: Math.round((desktopW || 320) * 1.5) }}>
+                      <AiStoryBook
+                        pages={[
+                          { image: storybookData.coverImage, text: `${storybookData.title}\n${storybookData.summary}`, bg: "#fff" },
+                          ...((storybookData.pages || []).map((p: any) => ({ image: p.image, text: p.text, bg: "#fff" })))
+                        ]}
+                        width={desktopW || 320}
+                        height={Math.round((desktopW || 320) * 1.5)}
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>
