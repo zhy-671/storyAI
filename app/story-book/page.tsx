@@ -22,6 +22,7 @@ export default function StoryBookPlaza() {
   const [favorites, setFavorites] = useState(new Set());
   const [loading, setLoading] = useState(true);
   const [stories, setStories] = useState<StoryItem[]>([]);
+  const [thumbs, setThumbs] = useState<Record<string, string>>({});
 
   // Fetch list from backend/DB
   useEffect(() => {
@@ -49,6 +50,33 @@ export default function StoryBookPlaza() {
   // simplified card visuals; difficulty/metrics removed
 
   const filtered = stories; // all items from DB, no client filters
+
+  // resolve thumbnails from bookcontent json (if provided)
+  useEffect(() => {
+    (async () => {
+      const entries = await Promise.allSettled(
+        stories.map(async (s) => {
+          if (!s.bookcontent) return [s.id, ""] as const;
+          try {
+            const res = await fetch(s.bookcontent, { cache: "force-cache" });
+            const json = await res.json();
+            const cover: string = json.coverImage || json.images?.[0] || "";
+            return [s.id, cover] as const;
+          } catch {
+            return [s.id, ""] as const;
+          }
+        })
+      );
+      const map: Record<string, string> = {};
+      for (const r of entries) {
+        if (r.status === "fulfilled") {
+          const [id, url] = r.value;
+          if (url) map[id] = url;
+        }
+      }
+      setThumbs(map);
+    })();
+  }, [stories]);
 
   const toggleFavorite = (id: string) => {
     setFavorites(prev => {
@@ -81,34 +109,33 @@ export default function StoryBookPlaza() {
             )}
             {filtered.map((s, i) => (
               <motion.div key={s.id} initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.5, delay:i*0.1}}>
-                <Card className={`h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${s.featured ? 'ring-2 ring-primary' : ''}`}>
+                <Card className={`h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden ${s.featured ? 'ring-2 ring-primary' : ''}`}>
                   {s.featured && (
-                    <div className="absolute -top-2 -right-2"><Badge className="bg-primary text-primary-foreground">Featured</Badge></div>
+                    <div className="absolute -top-2 -right-2 z-10"><Badge className="bg-primary text-primary-foreground">Featured</Badge></div>
                   )}
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="text-3xl">{s.icon}</div>
-                        <div>
-                          <CardTitle className="text-lg">{s.title}</CardTitle>
-                          <CardDescription className="mt-1">{s.description}</CardDescription>
-                        </div>
+                  <div className="relative">
+                    <div className="aspect-[2/3] w-full bg-muted">
+                      {thumbs[s.id] ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={thumbs[s.id]} alt={s.title} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">No Image</div>
+                      )}
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 p-2 flex items-center justify-between bg-gradient-to-t from-black/40 to-transparent">
+                      <div className="flex items-center space-x-2">
+                        <Button variant="outline" size="sm" onClick={()=>router.push(`/story-book/${s.id}`)} className="backdrop-blur bg-white/80">
+                          <Eye className="h-4 w-4 mr-1" />Read
+                        </Button>
+                        <Button size="sm" onClick={()=>router.push('/create')} className="backdrop-blur bg-primary text-primary-foreground">
+                          <Wand2 className="h-4 w-4 mr-1" />Create
+                        </Button>
                       </div>
-                      <Button variant="ghost" size="sm" onClick={()=>toggleFavorite(s.id)}>
-                        <Heart className={`h-4 w-4 ${favorites.has(s.id) ? 'fill-red-500 text-red-500' : ''}`} />
+                      <Button variant="ghost" size="icon" onClick={()=>toggleFavorite(s.id)}>
+                        <Heart className={`h-4 w-4 ${favorites.has(s.id) ? 'fill-red-500 text-red-500' : 'text-white'}`} />
                       </Button>
                     </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="text-sm text-muted-foreground bg-muted/40 p-3 rounded">ID: {s.id}</div>
-                    <div className="flex items-center justify-between pt-2">
-                      <div />
-                      <div className="flex items-center space-x-2">
-                        <Button variant="outline" size="sm" onClick={()=>router.push(`/story-book/${s.id}`)}><Eye className="h-4 w-4 mr-1" />Read</Button>
-                        <Button size="sm" onClick={()=>router.push('/create')}><Wand2 className="h-4 w-4 mr-1" />Create</Button>
-                      </div>
-                    </div>
-                  </CardContent>
+                  </div>
                 </Card>
               </motion.div>
             ))}

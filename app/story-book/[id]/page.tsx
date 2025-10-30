@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import AiStoryBook from "@/components/book/AiStoryBook";
@@ -25,6 +25,8 @@ export default function StoryBookReaderPage() {
   const id = String(params?.id || "sample");
   const [data, setData] = useState<SB | null>(null);
   const [bookPath, setBookPath] = useState<string | null>(null);
+  const boxRef = useRef<HTMLDivElement | null>(null);
+  const [boxW, setBoxW] = useState<number>(0);
 
   useEffect(() => {
     let active = true;
@@ -43,6 +45,17 @@ export default function StoryBookReaderPage() {
     })();
     return () => { active = false; };
   }, [id]);
+
+  // Responsive size (same as generator viewer)
+  useEffect(() => {
+    const ro = new ResizeObserver((entries) => {
+      for (const e of entries) {
+        setBoxW(e.contentRect.width || 0);
+      }
+    });
+    if (boxRef.current) ro.observe(boxRef.current);
+    return () => ro.disconnect();
+  }, []);
 
   const pages = useMemo(() => {
     if (!data) return [] as { image?: string; text?: string; title?: string }[];
@@ -69,7 +82,11 @@ export default function StoryBookReaderPage() {
 
         <div className="flex flex-col items-center">
           {data ? (
-            <AiStoryBook pages={pages} width={320} height={480} />
+            <div ref={boxRef} className="w-full max-w-md">
+              <div style={{ width: '100%', height: Math.round((boxW || 320) * 1.5) }}>
+                <AiStoryBook pages={pages} width={boxW || 320} height={Math.round((boxW || 320) * 1.5)} />
+              </div>
+            </div>
           ) : (
             <div className="text-muted-foreground">Loading...</div>
           )}
