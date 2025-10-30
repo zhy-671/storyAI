@@ -328,12 +328,12 @@ export default function CreatePage() {
         />
       )}
       {/* Header */}
-        <div className="container px-4 md:px-6 py-6">
+        <div className="container px-5 py-6">
        
 
         {/* Main Layout */}
         {(() => { const showRight = (currentProgress?.currentImageCount || 0) > 0; return (
-        <div className={`grid gap-8 justify-items-center ${showRight ? 'lg:grid-cols-2' : 'lg:grid-cols-1'}`}>
+        <div className={`grid gap-[20px] justify-items-center ${showRight ? 'lg:grid-cols-2' : 'lg:grid-cols-1'}`}>
           {/* Left Panel - Input and Generation */}
           <div className="space-y-6 w-full max-w-xl mx-auto place-self-center justify-self-center">
             {/* Generation Status Card */}
@@ -538,7 +538,7 @@ export default function CreatePage() {
 
           {/* Right Panel - Storybook Preview - Desktop Only */}
           {storybookData && currentProgress && currentProgress.currentImageCount > 0 && (
-            <div className="hidden lg:block space-y-6">
+            <div className="hidden lg:block space-y-6 w-full">
               <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-0 shadow-xl">
                 <CardHeader>
                   <div className="flex items-center justify-between">
