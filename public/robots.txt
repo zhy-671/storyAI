@@ -1,6 +1,12 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /dashboard
+
+Sitemap: https://storyai.pro/sitemap.xml
+User-agent: *
+Allow: /
+Disallow: /api/
 Disallow: /dashboard/
 Disallow: /admin/
 Disallow: /_next/

@@ -17,13 +17,13 @@ BEGIN
   ) VALUES (
     NEW.id,
     NEW.email,
-    3, -- 新用户赠送3积分
+    5, -- 新用户赠送5积分
     'auto_' || NEW.id::text, -- 自动生成的creem_customer_id
     NOW(),
     NOW(),
     jsonb_build_object(
       'source', 'auto_registration',
-      'initial_credits', 3,
+      'initial_credits', 5,
       'registration_date', NOW()
     )
   );
@@ -38,7 +38,7 @@ BEGIN
     metadata
   ) VALUES (
     (SELECT id FROM public.customers WHERE user_id = NEW.id),
-    3,
+    5,
     'add',
     'Welcome bonus for new user registration',
     NOW(),
@@ -71,13 +71,13 @@ INSERT INTO public.customers (
 SELECT 
   au.id,
   au.email,
-  3, -- 赠送3积分
+  5, -- 赠送5积分
   'existing_' || au.id::text,
   au.created_at,
   NOW(),
   jsonb_build_object(
     'source', 'existing_user_migration',
-    'initial_credits', 3,
+      'initial_credits', 5,
     'migration_date', NOW()
   )
 FROM auth.users au
@@ -95,7 +95,7 @@ INSERT INTO public.credits_history (
 )
 SELECT 
   c.id,
-  3,
+  5,
   'add',
   'Welcome bonus for existing user',
   NOW(),
@@ -112,6 +112,6 @@ AND c.creem_customer_id LIKE 'existing_%'; -- 只为刚迁移的现有用户添�
 DO $$
 BEGIN
     RAISE NOTICE 'Auto-create customer trigger has been created successfully!';
-    RAISE NOTICE 'All existing users now have customer records with 3 initial credits.';
+    RAISE NOTICE 'All existing users now have customer records with 5 initial credits.';
     RAISE NOTICE 'New users will automatically get customer records when they register.';
 END $$;

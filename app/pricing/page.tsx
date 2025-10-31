@@ -349,7 +349,7 @@ export default function PricingPage() {
                         ))}
                       </ul>
                       <Button
-                        onClick={() => router.push('/create')}
+                        onClick={() => router.push('/create-story-book')}
                         className={`w-full ${
                           plan.popular
                             ? 'bg-primary text-primary-foreground hover:bg-primary/90'
@@ -471,7 +471,7 @@ export default function PricingPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
-                  onClick={() => router.push('/create')}
+                  onClick={() => router.push('/create-story-book')}
                   size="lg"
                   variant="secondary"
                   className="px-8 py-4 text-lg h-auto"

@@ -151,7 +151,7 @@ export default function DashboardPage() {
               <h1 className="text-3xl font-bold">My Stories</h1>
               <p className="text-muted-foreground">Manage and organize your creative works</p>
             </div>
-            <Button onClick={() => router.push('/create')}>
+            <Button onClick={() => router.push('/create-story-book')}>
               <Plus className="h-4 w-4 mr-2" />
               Create New Story
             </Button>
@@ -413,7 +413,7 @@ export default function DashboardPage() {
                   <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-lg font-semibold mb-2">No drafts yet</h3>
                   <p className="text-muted-foreground mb-4">Start creating to see your drafts here</p>
-                  <Button onClick={() => router.push('/create')}>
+                  <Button onClick={() => router.push('/create-story-book')}>
                     <Plus className="h-4 w-4 mr-2" />
                     Create New Story
                   </Button>
@@ -425,7 +425,7 @@ export default function DashboardPage() {
                   <Zap className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-lg font-semibold mb-2">No completed stories yet</h3>
                   <p className="text-muted-foreground mb-4">Complete your stories to see them here</p>
-                  <Button onClick={() => router.push('/create')}>
+                  <Button onClick={() => router.push('/create-story-book')}>
                     <Plus className="h-4 w-4 mr-2" />
                     Create New Story
                   </Button>

@@ -24,9 +24,9 @@ export async function POST(request: NextRequest) {
         messages: [
           {
             role: "system",
-            content: `# 角色
+            content: `# rol
 
-You are a **master picture book creator**.
+You are a **master English picture book creator**.
 
 ## Task
 
@@ -53,7 +53,7 @@ Create English picture book content for a specific reader group (children/teenag
 
 6. **Story Summary ("summary" field):**
 
-* Create a summary sentence of **no more than 30 Chinese characters**.
+* Create a summary sentence of **no more than 30 english characters**.
 
 * The summary must highly condense the core ideas and emotional value of the story.
 

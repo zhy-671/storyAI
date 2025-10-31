@@ -117,32 +117,7 @@ export default function Home() {
     }
   ];
 
-  const testimonials = [
-    {
-      name: "Sarah Chen",
-      role: "Content Creator",
-      content: "I created 50+ illustrated stories for my YouTube channel in just one month! The photo prompts are perfect for visual storytelling.",
-      avatar: "👩‍💼",
-      rating: 5,
-      gradient: "from-blue-400 to-purple-500"
-    },
-    {
-      name: "Michael Rodriguez",
-      role: "Elementary Teacher",
-      content: "My students love the personalized storybooks I create. The illustration prompts make it easy to create engaging visual stories.",
-      avatar: "👨‍🏫",
-      rating: 5,
-      gradient: "from-green-400 to-emerald-500"
-    },
-    {
-      name: "Emma Thompson",
-      role: "Indie Author",
-      content: "I use this tool to brainstorm horror and fantasy stories. The step-by-step guidance helps me develop complex plots effortlessly.",
-      avatar: "👩‍🎨",
-      rating: 5,
-      gradient: "from-purple-400 to-pink-500"
-    }
-  ];
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
@@ -238,7 +213,7 @@ export default function Home() {
                 className="flex flex-col sm:flex-row gap-4"
               >
               <Button
-                onClick={() => router.push('/create')}
+                onClick={() => router.push('/create-story-book')}
                 size="lg"
                   className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-8 py-4 text-lg h-auto font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
@@ -686,67 +661,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-24 bg-white dark:bg-slate-900">
-        <div className="container px-4 md:px-6">
-          <div className="mx-auto max-w-7xl">
-              <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center space-y-6 mb-20"
-            >
-              <h2 className="text-5xl md:text-6xl font-bold tracking-tight">
-                <span className="bg-gradient-to-r from-blue-600 to-slate-600 bg-clip-text text-transparent">
-                  Loved by Creators
-                </span>
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Join thousands of satisfied users creating amazing content with Story AI
-              </p>
-              </motion.div>
-              
-            <div className="grid gap-6 grid-cols-2 lg:grid-cols-3">
-              {testimonials.map((testimonial, index) => (
-              <motion.div
-                  key={testimonial.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Card className="h-full hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900">
-                    <CardContent className="p-4 sm:p-6 lg:p-8">
-                      <div className="space-y-3 sm:space-y-4 lg:space-y-6">
-                        <div className="flex items-center gap-1">
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                        <p className="text-gray-700 dark:text-gray-300 italic text-sm sm:text-base lg:text-lg leading-relaxed">
-                          "{testimonial.content}"
-                        </p>
-                        <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
-                        <div className="text-2xl sm:text-3xl lg:text-4xl">{testimonial.avatar}</div>
-                        <div>
-                            <p className="font-bold text-gray-900 dark:text-white text-sm sm:text-base lg:text-lg">
-                              {testimonial.name}
-                            </p>
-                            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                              {testimonial.role}
-                            </p>
-                          </div>
-                  </div>
-                </div>
-                    </CardContent>
-                  </Card>
-              </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-slate-800 via-blue-900 to-slate-900 relative overflow-hidden">
@@ -773,21 +688,13 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <Button
-                  onClick={() => router.push('/create')}
+                  onClick={() => router.push('/create-story-book')}
                   size="lg"
                   className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-10 py-6 text-xl h-auto font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105"
                 >
                   <Wand2 className="mr-3 h-6 w-6" />
                   Start Creating Now
                   <ArrowRight className="ml-3 h-6 w-6" />
-                </Button>
-                <Button
-                  onClick={() => router.push('/pricing')}
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-6 text-xl h-auto font-semibold rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105"
-                >
-                  View Pricing Plans
                 </Button>
               </div>
               

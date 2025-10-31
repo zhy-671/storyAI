@@ -1,56 +1,27 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://storyai.pro'
-  
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/create`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/templates`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/dashboard`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/story-ai`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/sign-in`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/sign-up`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.3,
-    },
-  ]
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+  const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${base}/`, lastModified: new Date() },
+    { url: `${base}/story-book`, lastModified: new Date() },
+    { url: `${base}/create-story-book`, lastModified: new Date() },
+  ];
+
+  try {
+    const res = await fetch(`${base}/api/storybooks`, { cache: "no-store" });
+    if (!res.ok) return staticRoutes;
+    const data = await res.json();
+    if (!Array.isArray(data)) return staticRoutes;
+
+    const dynamicRoutes: MetadataRoute.Sitemap = data.map((s: any) => ({
+      url: `${base}/story-book/${encodeURIComponent(s.slug || s.id)}`,
+      lastModified: new Date(s.updated_at || s.created_at || Date.now()),
+    }));
+
+    return [...staticRoutes, ...dynamicRoutes];
+  } catch {
+    return staticRoutes;
+  }
 }

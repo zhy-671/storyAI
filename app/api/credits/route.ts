@@ -46,7 +46,7 @@ export async function GET() {
         .insert({
           user_id: user.id,
           email: user.email || 'unknown@example.com',
-          credits: 3, // 新用户赠送3积分
+          credits: 5, // 新用户赠送5积分
           creem_customer_id: `new_user_${user.id}`,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
@@ -79,7 +79,7 @@ export async function GET() {
         .from('credits_history')
         .insert({
           customer_id: newCustomer.id,
-          amount: 3,
+          amount: 5,
           type: 'add',
           description: 'Welcome bonus for new user',
           metadata: { source: 'welcome_bonus' }

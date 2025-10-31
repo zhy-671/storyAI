@@ -12,9 +12,9 @@ export function generateSlug(title: string): string {
   // Replace spaces and underscores with hyphens
   slug = slug.replace(/[\s_]+/g, "-");
   
-  // Keep letters (including Chinese), numbers, hyphens, and encodeURIComponent will handle Chinese
-  // Remove only special characters that shouldn't be in URLs
-  slug = slug.replace(/[^\p{L}\p{N}-]/gu, "");
+  // Keep letters (basic Latin), numbers, basic CJK (\u4e00-\u9fa5), and hyphens
+  // Avoid Unicode property escapes to support older targets
+  slug = slug.replace(/[^A-Za-z0-9\u4e00-\u9fa5-]/g, "");
   
   // Remove multiple consecutive hyphens
   slug = slug.replace(/-+/g, "-");

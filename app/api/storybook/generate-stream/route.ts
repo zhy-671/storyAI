@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/utils/supabase/server";
 import { uploadImageFromUrl } from "@/utils/storage/tos";
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = await createClient();
+    // Require authentication for server-side generation (custom prompts)
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Parse body early to inspect guest token (for unauthenticated flow)
     const body = await request.json();
     const { prompt, referenceImages = [] } = body;
 
@@ -10,6 +19,8 @@ export async function POST(request: NextRequest) {
     if (!prompt) {
       return NextResponse.json({ error: "Missing prompt" }, { status: 400 });
     }
+
+    // Credits-only mode: no per-day/guest quotas here. Frontend has already charged credits.
 
     // Create a ReadableStream for Server-Sent Events
     const stream = new ReadableStream({
@@ -43,9 +54,9 @@ export async function POST(request: NextRequest) {
               messages: [
                 {
                   role: "system",
-                  content: `# 角色
+                  content: `# rol
 
-You are a **master picture book creator**.
+You are a **master English picture book creator**.
 
 ## Task
 
@@ -72,7 +83,7 @@ Create English picture book content for a specific reader group (children/teenag
 
 6. **Story Summary ("summary" field):**
 
-* Create a summary sentence of **no more than 30 Chinese characters**.
+* Create a summary sentence of **no more than 30 english characters**.
 
 * The summary must highly condense the core ideas and emotional value of the story.
 

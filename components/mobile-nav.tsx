@@ -50,11 +50,9 @@ export function MobileNav({ items, user, isDashboard }: MobileNavProps) {
               )}
               {!isDashboard && (
                 <>
-                  <Button asChild variant="default" className="w-full">
-                    <Link href="/profile">Profile</Link>
-                  </Button>
+                  {/* After login, hide Profile and show My Story only */}
                   <Button asChild variant="outline" className="w-full">
-                    <Link href="/dashboard">Dashboard</Link>
+                    <Link href="/dashboard">My Story</Link>
                   </Button>
                 </>
               )}

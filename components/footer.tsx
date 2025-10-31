@@ -60,8 +60,7 @@ export function Footer() {
           <div className="col-span-full lg:col-span-2">
             <Logo />
             <p className="mt-4 text-sm text-muted-foreground">
-              Starter kit for your next project. Built with Next.js and
-              Creem.io.
+              Create Stories That Feel Alive — Powered by Story AI. With Story AI Create Story Book, anyone can turn imagination into beautiful illustrated tales. Our intelligent story generator helps you write, design, and publish storybooks in minutes — whether it’s a bedtime story, fantasy adventure, or photo book. This AI-powered story creator understands your ideas, builds vivid characters, and weaves emotional plots automatically. Just describe your idea, and watch your AI storybook come to life. Perfect for writers, teachers, parents, or anyone who loves storytelling — Story AI Create Story Book makes creativity simple, fun, and limitless. Start creating your own storybook today and share your imagination with the world.
             </p>
           </div>
           <div className="col-span-2 grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-4">

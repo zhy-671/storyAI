@@ -12,9 +12,9 @@ const baseUrl = process.env.BASE_URL
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
-  title: " Story books & Story AI Generator｜Free Picture & Story Creation Tool",
+  title: " Story AI Create Story Book｜Free AI Story & Photo Book Generator",
   description: "Create your own AI story and photo books for free! Supports horror, fantasy, romance, school life, anime, and more. No sign-up required, unlimited usage, perfect for short stories, novels, or fully illustrated books.",
-  keywords: "Story AI, AI photo book, free story generator, Creepypasta, fantasy adventure, horror story, AI writing tool, illustrated story, novel creation, online writing",
+  keywords: "Story AI, Create Story Book, AI story generator, AI story maker, AI book creator",
   icons: {
     icon: "/images/storybook.ico",
     shortcut: "/images/storybook.ico",

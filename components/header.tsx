@@ -7,6 +7,8 @@ import { ThemeSwitcher } from "./theme-switcher";
 import { Logo } from "./logo";
 import { usePathname } from "next/navigation";
 import { MobileNav } from "./mobile-nav";
+import { useEffect, useState } from "react";
+import { Coins } from "lucide-react";
 
 interface HeaderProps {
   user: any;
@@ -20,13 +22,29 @@ interface NavItem {
 export default function Header({ user }: HeaderProps) {
   const pathname = usePathname();
   const isDashboard = pathname?.startsWith("/dashboard");
+  const [credits, setCredits] = useState<number | null>(null);
 
-  // Main navigation items for Story AI
+  useEffect(() => {
+    let mounted = true;
+    async function loadCredits() {
+      try {
+        if (!user) { setCredits(null); return; }
+        const res = await fetch('/api/credits', { method: 'GET', cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const remain = data?.credits?.remaining_credits ?? data?.credits?.total_credits ?? null;
+        if (mounted) setCredits(typeof remain === 'number' ? remain : null);
+      } catch {}
+    }
+    loadCredits();
+    return () => { mounted = false; };
+  }, [user]);
+
+  // Main navigation items（不包含 My Story）
   const mainNavItems: NavItem[] = [
     { label: "Home", href: "/" },
-    { label: "Create", href: "/create" },
+    { label: "Create", href: "/create-story-book" },
     { label: "Story Book", href: "/story-book" },
-    { label: "Dashboard", href: "/dashboard" },
   ];
 
   // Dashboard items - empty array as we don't want navigation items in dashboard
@@ -59,6 +77,12 @@ export default function Header({ user }: HeaderProps) {
           <ThemeSwitcher />
           {user ? (
             <div className="hidden md:flex items-center gap-2">
+              {credits !== null && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold bg-muted px-2 py-1 rounded-md mr-1">
+                  <Coins className="w-4 h-4 text-yellow-500" />
+                  {credits}
+                </span>
+              )}
               {isDashboard && (
                 <span className="hidden sm:inline text-sm text-muted-foreground">
                   {user.email}
@@ -66,11 +90,9 @@ export default function Header({ user }: HeaderProps) {
               )}
               {!isDashboard && (
                 <>
-                  <Button asChild size="sm" variant="default">
-                    <Link href="/profile">Profile</Link>
-                  </Button>
+                  {/* After login, hide Profile and show My Story only */}
                   <Button asChild size="sm" variant="outline">
-                    <Link href="/dashboard">Dashboard</Link>
+                    <Link href="/dashboard">My Story</Link>
                   </Button>
                 </>
               )}

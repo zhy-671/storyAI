@@ -69,29 +69,51 @@ export async function POST(request: Request) {
 
 async function handleCheckoutCompleted(event: CreemWebhookEvent) {
   const checkout = event.object;
-  console.log("Processing completed checkout:", checkout);
+  console.log("Processing completed checkout:", JSON.stringify(checkout, null, 2));
 
   try {
-    // Validate required data
-    if (!checkout.metadata?.user_id) {
+    // Get user_id from checkout.metadata or checkout.order.metadata
+    const userId = checkout.metadata?.user_id || checkout.order?.metadata?.user_id;
+    if (!userId) {
       console.error("Missing user_id in checkout metadata:", checkout);
       throw new Error("user_id is required in checkout metadata");
     }
 
+    // Get product_type from checkout.metadata or checkout.order.metadata
+    const productType = checkout.metadata?.product_type || checkout.order?.metadata?.product_type;
+
     // Create or update customer
     const customerId = await createOrUpdateCustomer(
       checkout.customer,
-      checkout.metadata.user_id
+      userId
     );
+    console.log("Customer ID:", customerId);
 
     // Check if this is a credit purchase
-    if (checkout.metadata?.product_type === "credits") {
+    if (productType === "credits") {
+      // Get credits from checkout.order.metadata or checkout.metadata
+      // Convert to number in case it's a string
+      const creditsRaw = checkout.order?.metadata?.credits || checkout.metadata?.credits;
+      const credits = typeof creditsRaw === "string" ? parseInt(creditsRaw, 10) : Number(creditsRaw || 0);
+      
+      console.log("Processing credit purchase:", {
+        creditsRaw,
+        credits,
+        orderId: checkout.order?.id,
+      });
+
+      if (!credits || credits <= 0) {
+        console.error("Invalid credits amount:", creditsRaw);
+        throw new Error(`Invalid credits amount: ${creditsRaw}`);
+      }
+
       await addCreditsToCustomer(
         customerId,
-        checkout.metadata?.credits,
-        checkout.order.id,
-        `Purchased ${checkout.metadata?.credits} credits`
+        credits,
+        checkout.order?.id,
+        `Purchased ${credits} credits`
       );
+      console.log("Successfully added credits to customer");
     }
     // If subscription exists, create or update it
     else if (checkout.subscription) {

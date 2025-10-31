@@ -1,4 +1,4 @@
-import { ACLType, TosClient, TosClientError, TosServerError } from "@volcengine/tos-sdk";
+// Lazy import SDK to avoid hard dependency at build time
 
 const accessKeyId = process.env.VOLC_TOS_ACCESS_KEY_ID as string | undefined;
 const secretAccessKey = process.env.VOLC_TOS_SECRET_ACCESS_KEY as string | undefined;
@@ -117,12 +117,21 @@ export async function uploadImageFromUrl(sourceUrl: string, options?: { keyPrefi
     console.log("[TOS] Upload start (raw):", { sourceUrl, endpoint, bucket, key });
   }
 
-  // 官方 SDK 客户端
+  // 官方 SDK 客户端（动态导入）
+  let TosClient: any;
+  try {
+    const moduleName = ["@volcengine", "tos-sdk"].join("/");
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // Use dynamic module name to avoid static resolution at build time
+    // @ts-ignore
+    TosClient = (await import(moduleName)).TosClient;
+  } catch (e) {
+    throw new Error("@volcengine/tos-sdk is not installed. Please install it or disable TOS upload.");
+  }
   const client = new TosClient({
     accessKeyId,
     accessKeySecret: secretAccessKey!,
     region,
-    // Use host only to avoid cases where SDK concatenates bucket + protocol
     endpoint: normalizeEndpoint(endpoint!).host,
   });
 
@@ -136,19 +145,8 @@ export async function uploadImageFromUrl(sourceUrl: string, options?: { keyPrefi
       // 如需公开读，可改为 ACLType.ACLPublicRead，并结合桶策略/CDN 一起使用
       // acl: ACLType.ACLPublicRead,
     });
-  } catch (e: unknown) {
-    if (e instanceof TosClientError) {
-      console.error("[TOS] Client Err Msg:", e.message);
-      console.error("[TOS] Client Err Stack:", e.stack);
-    } else if (e instanceof TosServerError) {
-      console.error("[TOS] Request ID:", e.requestId);
-      console.error("[TOS] Response Status Code:", e.statusCode);
-      console.error("[TOS] Response Header:", e.headers);
-      console.error("[TOS] Response Err Code:", e.code);
-      console.error("[TOS] Response Err Msg:", e.message);
-    } else {
-      console.error("[TOS] unexpected exception:", e instanceof Error ? e.message : String(e));
-    }
+  } catch (e: any) {
+    console.error("[TOS] Upload failed:", e?.message || e);
     throw e;
   }
 

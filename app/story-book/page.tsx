@@ -21,10 +21,11 @@ interface StoryItem {
 
 export default function StoryBookPlaza() {
   const router = useRouter();
-  const [favorites, setFavorites] = useState(new Set());
+  const [favorites, setFavorites] = useState(new Set<string>());
   const [loading, setLoading] = useState(true);
   const [stories, setStories] = useState<StoryItem[]>([]);
   const [thumbs, setThumbs] = useState<Record<string, string>>({});
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
 
   // Fetch list from backend/DB - only admin-published books (is_admin = 1)
   useEffect(() => {
@@ -32,21 +33,38 @@ export default function StoryBookPlaza() {
     (async () => {
       try {
         const res = await fetch("/api/storybooks", { cache: "no-store" });
+        
+        if (!res.ok) {
+          console.error(`API Error: ${res.status} ${res.statusText}`);
+          if (active) {
+            setStories([]);
+            setLoading(false);
+          }
+          return;
+        }
+        
         const data = await res.json();
         
         // Check for error response
         if (data.error) {
           console.error("API Error:", data.error);
-          if (active) setStories([]);
+          if (active) {
+            setStories([]);
+            setLoading(false);
+          }
         } else {
           // Expect data as array of StoryItem-like objects
-          if (active) setStories(Array.isArray(data) ? data : []);
+          if (active) {
+            setStories(Array.isArray(data) ? data : []);
+            setLoading(false);
+          }
         }
-      } catch (error) {
-        console.error("Fetch Error:", error);
-        if (active) setStories([]);
-      } finally {
-        if (active) setLoading(false);
+      } catch (error: any) {
+        console.error("Fetch Error:", error?.message || error);
+        if (active) {
+          setStories([]);
+          setLoading(false);
+        }
       }
     })();
     return () => { active = false; };
@@ -58,36 +76,76 @@ export default function StoryBookPlaza() {
 
   // resolve thumbnails from bookcontent json (if provided)
   useEffect(() => {
+    if (stories.length === 0) return;
+    
+    let active = true;
     (async () => {
       const map: Record<string, string> = {};
       const needFetch: StoryItem[] = [];
+      
       for (const s of stories) {
         const cover = s?.data?.coverImage || s?.data?.images?.[0];
-        if (cover) map[s.id] = cover;
-        else if (s.bookcontent) needFetch.push(s);
+        if (cover) {
+          map[s.id] = cover;
+        } else if (s.bookcontent) {
+          needFetch.push(s);
+        }
       }
+      
       if (needFetch.length > 0) {
         const entries = await Promise.allSettled(
           needFetch.map(async (s) => {
             try {
-              const res = await fetch(s.bookcontent, { cache: "force-cache" });
-              const json = await res.json();
-              const cover: string = json.coverImage || json.images?.[0] || "";
-              return [s.id, cover] as const;
-            } catch {
+              // Check if bookcontent is a valid URL or path
+              if (!s.bookcontent || (!s.bookcontent.startsWith('http') && !s.bookcontent.startsWith('/'))) {
+                return [s.id, ""] as const;
+              }
+              
+              const controller = new AbortController();
+              const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+              
+              try {
+                const res = await fetch(s.bookcontent, { 
+                  cache: "force-cache",
+                  signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!res.ok) {
+                  console.warn(`Failed to fetch bookcontent for ${s.id}: ${res.status}`);
+                  return [s.id, ""] as const;
+                }
+                
+                const json = await res.json();
+                const cover: string = json.coverImage || json.images?.[0] || "";
+                return [s.id, cover] as const;
+              } catch (fetchError: any) {
+                clearTimeout(timeoutId);
+                throw fetchError;
+              }
+            } catch (error: any) {
+              // Silently fail for individual image fetches
+              if (error?.name !== 'AbortError') {
+                console.warn(`Error fetching bookcontent for ${s.id}:`, error?.message || error);
+              }
               return [s.id, ""] as const;
             }
           })
         );
+        
         for (const r of entries) {
-          if (r.status === "fulfilled") {
+          if (r.status === "fulfilled" && active) {
             const [id, url] = r.value;
             if (url) map[id] = url;
           }
         }
       }
-      setThumbs(map);
+      
+      if (active) setThumbs(map);
     })();
+    
+    return () => { active = false; };
   }, [stories]);
 
   const toggleFavorite = (id: string) => {
@@ -99,12 +157,17 @@ export default function StoryBookPlaza() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <section className="border-b bg-background/95 backdrop-blur">
-        <div className="container px-4 md:px-6 py-8">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted/40 dark:from-background dark:to-slate-900">
+      {/* Hero */}
+      <section className="relative border-b bg-background/80 backdrop-blur">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-gradient-to-br from-indigo-300/20 via-fuchsia-300/10 to-sky-300/20 blur-3xl dark:from-indigo-900/20 dark:via-fuchsia-900/10 dark:to-sky-900/20" />
+          <div className="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-gradient-to-tr from-sky-300/20 via-purple-300/10 to-indigo-300/20 blur-3xl dark:from-sky-900/20 dark:via-purple-900/10 dark:to-indigo-900/20" />
+        </div>
+        <div className="container px-4 md:px-6 py-12">
           <div className="max-w-6xl mx-auto text-center space-y-4">
-            <motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.5}} className="text-4xl font-bold">Story Book Plaza</motion.h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">Browse and start from a curated set of story book ideas.</p>
+            <motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.5}} className="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-sky-600 dark:from-indigo-400 dark:via-fuchsia-400 dark:to-sky-400">Story Book Plaza</motion.h1>
+            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">Browse a curated collection of AI storybooks. Read, enjoy, and get inspired to create your own.</p>
           </div>
         </div>
       </section>
@@ -113,44 +176,66 @@ export default function StoryBookPlaza() {
 
       {/* Categories removed per request */}
 
-      <section className="py-8">
+      <section className="py-10">
         <div className="container px-4 md:px-6 max-w-6xl mx-auto">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
             {loading && (
               <div className="col-span-full text-center text-muted-foreground py-12">Loading...</div>
             )}
-            {filtered.map((s, i) => (
+            {filtered.map((s, i) => {
+              const displayTitle = (s.title || "").trim()
+                || (s as any)?.data?.title?.trim()
+                || (s as any)?.data?.meta?.title?.trim()
+                || (s as any)?.data?.storybook?.title?.trim()
+                || (s as any)?.data?.storybook?.meta?.title?.trim()
+                || "Untitled";
+              const slugOrId = (s as any).slug || s.id;
+              return (
               <motion.div key={s.id} initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.5, delay:i*0.1}}>
-                <Card className={`h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden ${s.featured ? 'ring-2 ring-primary' : ''}`}>
+                <Card className={`group h-full overflow-hidden border-0 bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${s.featured ? 'ring-2 ring-primary' : ''}`}>
                   {s.featured && (
-                    <div className="absolute -top-2 -right-2 z-10"><Badge className="bg-primary text-primary-foreground">Featured</Badge></div>
+                    <div className="absolute -top-2 -right-2 z-10"><Badge className="bg-primary text-primary-foreground shadow">Featured</Badge></div>
                   )}
                   <div className="relative">
-                    <div className="aspect-[2/3] w-full bg-muted">
-                      {thumbs[s.id] ? (
+                    <div className="aspect-[2/3] w-full bg-muted/70 dark:bg-slate-800/60 overflow-hidden relative">
+                      {thumbs[s.id] && !imageErrors.has(s.id) ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={thumbs[s.id]} alt={s.title} className="w-full h-full object-cover" />
+                        <img 
+                          src={thumbs[s.id]} 
+                          alt={displayTitle} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          onError={() => {
+                            // Mark image as failed
+                            setImageErrors(prev => new Set(prev).add(s.id));
+                          }}
+                        />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">No Image</div>
+                        <div className="w-full h-full flex flex-col items-center justify-center text-muted-foreground">
+                          <span className="text-4xl mb-2">{s.icon}</span>
+                          <span className="text-sm">No Image</span>
+                        </div>
                       )}
                     </div>
-                    <div className="absolute inset-x-0 bottom-0 p-2 flex items-center justify-between bg-gradient-to-t from-black/40 to-transparent">
-                      <div className="flex items-center space-x-2">
-                        <Button variant="outline" size="sm" onClick={()=>router.push(`/story-book/${(s as any).slug || s.id}`)} className="backdrop-blur bg-white/80">
+                    <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between bg-gradient-to-t from-black/40 to-transparent">
+                      <div className="flex items-center gap-2">
+                        <Button variant="secondary" size="sm" onClick={()=>router.push(`/story-book/${slugOrId}`)} className="backdrop-blur bg-white/85">
                           <Eye className="h-4 w-4 mr-1" />Read
                         </Button>
-                        <Button size="sm" onClick={()=>router.push('/create')} className="backdrop-blur bg-primary text-primary-foreground">
+                        <Button size="sm" onClick={()=>router.push('/create-story-book')} className="backdrop-blur bg-primary text-primary-foreground shadow">
                           <Wand2 className="h-4 w-4 mr-1" />Create
                         </Button>
                       </div>
-                      <Button variant="ghost" size="icon" onClick={()=>toggleFavorite(s.id)}>
+                      <Button variant="ghost" size="icon" onClick={()=>toggleFavorite(s.id)} className="hover:bg-white/20">
                         <Heart className={`h-4 w-4 ${favorites.has(s.id) ? 'fill-red-500 text-red-500' : 'text-white'}`} />
                       </Button>
                     </div>
                   </div>
+                  <CardHeader className="pb-4">
+                    <CardTitle className="line-clamp-1">{displayTitle}</CardTitle>
+                  </CardHeader>
                 </Card>
               </motion.div>
-            ))}
+            );})}
           </div>
 
           {(!loading && filtered.length===0) && (
