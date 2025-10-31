@@ -36,7 +36,7 @@ export default function FlipBook({ pages, width = 600, height = 500, onFlip }: {
             { (p.isCover || idx === 0) ? (
               <div className="relative w-full h-full flex items-center justify-center">
                 {p.image ? (
-                  <div className="relative h-full" style={{ width: "320px" }}>
+                  <div className="relative h-full w-full">
                     <img src={p.image} alt={`cover`} className="absolute inset-0 w-full h-full object-cover rounded-md shadow-md" />
                   </div>
                 ) : null}
@@ -44,14 +44,12 @@ export default function FlipBook({ pages, width = 600, height = 500, onFlip }: {
                 <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black/20 to-transparent pointer-events-none" />
                 <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-white/50 to-transparent pointer-events-none translate-x-[2px]" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/15 pointer-events-none" />
-                <div className="absolute inset-3 border-4 border-amber-700/20 rounded-lg pointer-events-none" />
               </div>
             ) : (
               <>
-                {/* 内页：统一的高光/边框装饰 */}
+                {/* 内页：统一的高光/边框装饰 - 调整位置避免与内容重叠 */}
                 <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/10 pointer-events-none" />
-                <div className="absolute inset-3 border-4 border-amber-700/20 rounded-lg pointer-events-none" />
-
+                
                 {p.image ? (
                   <div className="relative w-full h-full">
                     <img src={p.image} alt={`page-${idx}`} className="absolute inset-0 w-full h-full object-cover rounded-md shadow" />
@@ -59,7 +57,15 @@ export default function FlipBook({ pages, width = 600, height = 500, onFlip }: {
                     <div className="absolute inset-y-0 right-0 w-3 bg-gradient-to-l from-white/60 to-transparent pointer-events-none translate-x-[2px]" />
                   </div>
                 ) : (
-                  <div className="relative p-8 pr-10 flex items-start justify-start h-full bg-gradient-to-br from-amber-50 to-white rounded-md shadow-inner">
+                  <div 
+                    className="relative flex items-start justify-start h-full bg-gradient-to-br from-amber-50 to-white rounded-md shadow-inner w-full"
+                    style={{
+                      paddingTop: Math.max(32, Math.floor((height || 500) * 0.08)), // 增加顶部边距
+                      paddingRight: 32,
+                      paddingLeft: 32,
+                      paddingBottom: Math.max(24, Math.floor((height || 500) * 0.06)),
+                    }}
+                  >
                     {(() => {
                       const raw = String(p.text || '');
                       const plainLen = raw.replace(/\s+/g, '').length;
