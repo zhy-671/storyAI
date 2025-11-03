@@ -48,7 +48,7 @@ export default function PrivacyPage() {
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               We are committed to protecting your privacy and being transparent about how we collect, 
-              use, and protect your personal information when you use our Chinese name generation service.
+              use, and protect your personal information when you use Story AI Create Story Book.
             </p>
             <p className="text-sm text-muted-foreground">
               <strong>Last updated:</strong> January 31, 2025
@@ -71,7 +71,7 @@ export default function PrivacyPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  We clearly explain what data we collect and how we use it to provide you with the best Chinese name generation experience.
+                  We clearly explain what data we collect and how we use it to provide you with the best story creation experience.
                 </p>
               </CardContent>
             </Card>
@@ -122,10 +122,10 @@ export default function PrivacyPage() {
                 <div>
                   <h4 className="font-semibold mb-3">Information You Provide</h4>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>• <strong>Personal Details:</strong> English name, gender, birth year (optional)</li>
-                    <li>• <strong>Preferences:</strong> Personality traits and name preferences you share</li>
                     <li>• <strong>Account Information:</strong> Email address when you create an account</li>
-                    <li>• <strong>Generated Names:</strong> Chinese names you generate and save to your profile</li>
+                    <li>• <strong>Story Content:</strong> Story prompts, preferences, and generated storybooks you create</li>
+                    <li>• <strong>Usage Data:</strong> Your interactions with our story creation features</li>
+                    <li>• <strong>Payment Information:</strong> Billing details for credit purchases and subscriptions</li>
                   </ul>
                 </div>
                 
@@ -155,10 +155,10 @@ export default function PrivacyPage() {
                 <div>
                   <h4 className="font-semibold mb-3">Service Provision</h4>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>• Generate personalized Chinese names</li>
-                    <li>• Save your generated names and preferences</li>
-                    <li>• Provide customer support</li>
-                    <li>• Process payments for premium features</li>
+                    <li>• Generate AI-powered storybooks based on your prompts</li>
+                    <li>• Save and manage your created storybooks</li>
+                    <li>• Provide customer support and assistance</li>
+                    <li>• Process payments for credits and subscriptions</li>
                   </ul>
                 </div>
                 
@@ -268,12 +268,33 @@ export default function PrivacyPage() {
                     <h4 className="font-semibold mb-2 text-foreground">Data Retention</h4>
                     <ul className="space-y-1">
                       <li>• Account data: Until account deletion</li>
-                      <li>• Generated names: Until you delete them</li>
+                      <li>• Generated storybooks: Until you delete them</li>
                       <li>• Usage logs: Up to 2 years</li>
                       <li>• Marketing data: Until opt-out</li>
                     </ul>
                   </div>
                 </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* AI Models Disclosure */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.2 }}
+            className="space-y-8"
+          >
+            <div className="bg-muted/30 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold mb-6">AI Models and Third-Party Services</h3>
+              
+              <div className="space-y-4 text-muted-foreground">
+                <p>
+                  Our platform offers a user-friendly interface built on top of models like Doubao (豆包模型) to enhance usability and provide additional features. We are an independent service and not affiliated with the model providers.
+                </p>
+                <p>
+                  While we use these AI models to power our story generation services, we maintain our own infrastructure, user interface, and additional value-added features. Any issues, questions, or concerns regarding our service should be directed to us, not the underlying model providers.
+                </p>
               </div>
             </div>
           </motion.div>

@@ -1,12 +1,16 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { createServiceRoleClient } from "@/utils/supabase/service-role";
 import { generateSlug } from "@/utils/slug";
 
 export async function GET(request: Request) {
-  const supabase = await createClient();
+  // This endpoint is public - works for both logged-in and logged-out users
+  // Always returns only admin-published storybooks (is_admin = 1)
+  // Use service role client to bypass RLS and ensure all admin-published books are returned
+  const supabase = createServiceRoleClient();
 
   // Query only admin-published storybooks (is_admin = 1)
-  // No need to check login status, just show all admin-published books
+  // Using service role client bypasses RLS, ensuring consistent results regardless of login status
   // Include slug if column exists (will work after migration)
   const { data, error } = await supabase
     .from("storybooks")

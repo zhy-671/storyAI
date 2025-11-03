@@ -47,7 +47,7 @@ export default function TermsPage() {
               Terms of Service
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              These terms govern your use of our Chinese name generation service. 
+              These terms govern your use of Story AI Create Story Book. 
               By using our service, you agree to these terms and conditions.
             </p>
             <p className="text-sm text-muted-foreground">
@@ -71,7 +71,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Use our service to generate Chinese names, save your favorites, and share your generated names with others.
+                  Use our service to create AI-powered storybooks, save your creations, and share your stories with others.
                 </p>
               </CardContent>
             </Card>
@@ -85,7 +85,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Misuse our service, violate others' rights, or use generated names for illegal or harmful purposes.
+                  Misuse our service, violate others' rights, or create content for illegal or harmful purposes.
                 </p>
               </CardContent>
             </Card>
@@ -99,7 +99,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Provide reliable service, protect your privacy, and maintain the quality of our name generation.
+                  Provide reliable service, protect your privacy, and maintain the quality of our story generation.
                 </p>
               </CardContent>
             </Card>
@@ -120,15 +120,15 @@ export default function TermsPage() {
               
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Chinese Name Generator is an AI-powered platform that creates personalized Chinese names based on 
-                  your preferences, personality traits, and cultural considerations. Our service includes:
+                  Story AI Create Story Book is an AI-powered platform that creates personalized storybooks based on 
+                  your prompts, preferences, and creative ideas. Our service includes:
                 </p>
                 
                 <ul className="space-y-2">
-                  <li>• <strong>Free Generation:</strong> Limited daily name generation for non-registered users</li>
-                  <li>• <strong>Premium Features:</strong> Unlimited generation, personalized matching, and name saving for registered users</li>
-                  <li>• <strong>Cultural Education:</strong> Detailed meanings, pronunciations, and cultural context for generated names</li>
-                  <li>• <strong>Personal Collections:</strong> Save and manage your favorite generated names</li>
+                  <li>• <strong>Story Generation:</strong> Create complete storybooks with narrative text and illustration prompts</li>
+                  <li>• <strong>Multiple Genres:</strong> Support for horror, fantasy, romance, children's stories, mystery, and more</li>
+                  <li>• <strong>Credit System:</strong> Use credits to generate storybooks, with various purchase options available</li>
+                  <li>• <strong>Story Management:</strong> Save, view, and manage your created storybooks</li>
                 </ul>
               </div>
             </div>
@@ -148,21 +148,22 @@ export default function TermsPage() {
                 <div>
                   <h4 className="font-semibold mb-3 text-green-700">Acceptable Use</h4>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>• Use the service for personal, educational, or cultural purposes</li>
+                    <li>• Use the service for personal, educational, or creative purposes</li>
                     <li>• Provide accurate information when creating an account</li>
-                    <li>• Respect intellectual property rights</li>
+                    <li>• Respect intellectual property rights and content guidelines</li>
                     <li>• Keep your account credentials secure</li>
-                    <li>• Report any technical issues or misuse</li>
+                    <li>• Report any technical issues or inappropriate content</li>
                   </ul>
                 </div>
                 
                 <div>
                   <h4 className="font-semibold mb-3 text-red-700">Prohibited Activities</h4>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>• Using generated names for fraudulent purposes</li>
-                    <li>• Attempting to reverse-engineer our algorithms</li>
+                    <li>• Creating content for fraudulent or illegal purposes</li>
+                    <li>• Attempting to reverse-engineer our AI algorithms</li>
                     <li>• Sharing account credentials with others</li>
-                    <li>• Using automated tools to bulk-generate names</li>
+                    <li>• Using automated tools to bulk-generate stories</li>
+                    <li>• Creating inappropriate, harmful, or offensive content</li>
                     <li>• Violating any applicable laws or regulations</li>
                   </ul>
                 </div>
@@ -178,32 +179,31 @@ export default function TermsPage() {
             className="space-y-8"
           >
             <div className="bg-muted/30 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-6">Intellectual Property and Generated Names</h3>
+              <h3 className="text-2xl font-bold mb-6">Intellectual Property and Generated Content</h3>
               
               <div className="space-y-4 text-muted-foreground">
                 <div>
-                  <h4 className="font-semibold mb-3 text-foreground">Your Rights to Generated Names</h4>
+                  <h4 className="font-semibold mb-3 text-foreground">Your Rights to Generated Content</h4>
                   <p>
-                    You have the right to use any Chinese names generated through our service for personal purposes. 
-                    However, please note that traditional Chinese names are part of cultural heritage and cannot be 
-                    exclusively owned by any individual.
+                    You have the right to use storybooks generated through our service for personal, educational, 
+                    or creative purposes. The stories you create are yours to use, share, and modify as you see fit.
                   </p>
                 </div>
                 
                 <div>
                   <h4 className="font-semibold mb-3 text-foreground">Our Intellectual Property</h4>
                   <p>
-                    The Chinese Name Generator platform, including our AI algorithms, website design, brand elements, 
+                    The Story AI Create Story Book platform, including our AI algorithms, website design, brand elements, 
                     and proprietary technology, remains our intellectual property. You may not copy, modify, or 
                     redistribute our platform or technology.
                   </p>
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold mb-3 text-foreground">Cultural Respect</h4>
+                  <h4 className="font-semibold mb-3 text-foreground">Content Guidelines</h4>
                   <p>
-                    We encourage respectful use of Chinese names and understanding of their cultural significance. 
-                    Generated names should be used with appreciation for Chinese culture and traditions.
+                    While you own the stories you create, you are responsible for ensuring your content complies with 
+                    our guidelines and applicable laws. We reserve the right to remove inappropriate or harmful content.
                   </p>
                 </div>
               </div>
@@ -235,16 +235,24 @@ export default function TermsPage() {
                 <div>
                   <h4 className="font-semibold mb-2 text-foreground">AI-Generated Content</h4>
                   <p>
-                    Our Chinese names are generated by AI technology. While we strive for cultural accuracy and appropriateness, 
-                    we recommend consulting with native speakers or cultural experts for important use cases.
+                    Our storybooks are generated by AI technology. While we strive for quality and appropriateness, 
+                    all AI-generated content is provided "as is" and may require review or editing before use.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold mb-2 text-foreground">Content Disclaimer</h4>
+                  <p>
+                    Story AI Create Story Book includes a disclaimer that content is AI-generated and may not be accurate. 
+                    We do not guarantee the accuracy, completeness, or suitability of generated content for any specific purpose.
                   </p>
                 </div>
                 
                 <div>
                   <h4 className="font-semibold mb-2 text-foreground">No Warranties</h4>
                   <p>
-                    Our service is provided "as is" without warranties of any kind. We do not guarantee the suitability 
-                    of generated names for any specific purpose or their acceptance in all cultural contexts.
+                    Our service is provided "as is" without warranties of any kind. We do not guarantee uninterrupted 
+                    service, error-free generation, or that generated content will meet your specific requirements.
                   </p>
                 </div>
               </div>
@@ -265,10 +273,10 @@ export default function TermsPage() {
                 <div>
                   <h4 className="font-semibold mb-3">Premium Subscriptions</h4>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>• Monthly and annual subscription options available</li>
-                    <li>• Automatic renewal unless cancelled</li>
-                    <li>• Access to unlimited name generation</li>
-                    <li>• Premium features and personalization</li>
+                    <li>• Credit-based system for story generation</li>
+                    <li>• Various credit packages available for purchase</li>
+                    <li>• Credits can be used for creating storybooks</li>
+                    <li>• Secure payment processing through Creem</li>
                   </ul>
                 </div>
                 
@@ -276,6 +284,7 @@ export default function TermsPage() {
                   <h4 className="font-semibold mb-3">Cancellation and Refunds</h4>
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• Cancel anytime through your account settings</li>
+                    <li>• For refund requests, please contact us at: <a href="mailto:gareaukeenan3155@gmail.com?subject=Refund Request" className="text-primary hover:underline">gareaukeenan3155@gmail.com</a></li>
                     <li>• Refunds processed according to our refund policy</li>
                     <li>• No refunds for partially used subscription periods</li>
                     <li>• Free trial cancellations take effect immediately</li>
@@ -330,8 +339,8 @@ export default function TermsPage() {
                 </Link>
               </Button>
               <Button asChild>
-                <Link href="/">
-                  Start Using Service
+                <Link href="/create-story-book">
+                  Start Creating Stories
                 </Link>
               </Button>
             </div>

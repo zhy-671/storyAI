@@ -80,7 +80,8 @@ export default function TestImageGeneration() {
       }
       
     } catch (error) {
-      addLog(`错误: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      addLog(`错误: ${errorMessage}`);
     } finally {
       setIsGenerating(false);
     }
@@ -143,7 +144,8 @@ export default function TestImageGeneration() {
                   }
                 }
               } catch (parseError) {
-                addLog(`解析错误: ${parseError.message}`);
+                const parseErrorMessage = parseError instanceof Error ? parseError.message : String(parseError);
+                addLog(`解析错误: ${parseErrorMessage}`);
               }
             }
           }
@@ -153,7 +155,8 @@ export default function TestImageGeneration() {
       }
       
     } catch (error) {
-      addLog(`错误: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      addLog(`错误: ${errorMessage}`);
     } finally {
       setIsGenerating(false);
     }

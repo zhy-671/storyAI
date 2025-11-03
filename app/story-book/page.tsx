@@ -202,8 +202,9 @@ export default function StoryBookPlaza() {
                         // eslint-disable-next-line @next/next/no-img-element
                         <img 
                           src={thumbs[s.id]} 
-                          alt={displayTitle} 
+                          alt={`${displayTitle} - AI-generated storybook cover image from Story AI Create Story Book`}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          loading="lazy"
                           onError={() => {
                             // Mark image as failed
                             setImageErrors(prev => new Set(prev).add(s.id));

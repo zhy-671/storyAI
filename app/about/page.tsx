@@ -40,17 +40,17 @@ export default function AboutPage() {
             className="text-center space-y-6"
           >
             <div className="inline-flex items-center rounded-full px-3 py-1 text-sm bg-primary/10 text-primary mb-4">
-              <span className="mr-2">🇨🇳</span>
-              Connecting Cultures Through Names
+              <Sparkles className="mr-2 h-4 w-4" />
+              AI-Powered Story Creation
             </div>
             <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              Bridging Cultures with
+              Creating Stories That
               <br />
-              <span className="text-primary">Meaningful Chinese Names</span>
+              <span className="text-primary">Feel Alive</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              We believe that a name is more than just words - it's a bridge between cultures, 
-              a reflection of identity, and a connection to the rich heritage of Chinese tradition.
+              Story AI Create Story Book helps anyone turn imagination into beautiful illustrated tales. 
+              Our intelligent story generator creates personalized storybooks in minutes, powered by advanced AI technology.
             </p>
           </motion.div>
 
@@ -70,8 +70,8 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  To help people from all backgrounds discover meaningful Chinese names that reflect 
-                  their personality while honoring traditional Chinese naming conventions and cultural significance.
+                  To make storytelling accessible to everyone. Whether you're a writer, teacher, parent, 
+                  or creative enthusiast, we empower you to bring your ideas to life through AI-powered story creation.
                 </p>
               </CardContent>
             </Card>
@@ -85,8 +85,8 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  We've helped thousands of people worldwide discover their perfect Chinese names, 
-                  fostering cultural appreciation and personal connection to Chinese heritage.
+                  We've helped creators worldwide generate thousands of unique storybooks - from bedtime 
+                  stories for children to fantasy adventures and creative narratives for all ages.
                 </p>
               </CardContent>
             </Card>
@@ -96,12 +96,12 @@ export default function AboutPage() {
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Globe className="h-6 w-6 text-primary" />
                 </div>
-                <CardTitle>Global Impact</CardTitle>
+                <CardTitle>Creative Freedom</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  From students studying abroad to business professionals working in China, 
-                  our platform serves people seeking authentic cultural connection worldwide.
+                  Our platform supports all genres - horror, fantasy, romance, children's stories, 
+                  mystery, and more. Create stories that match your vision and share them with the world.
                 </p>
               </CardContent>
             </Card>
@@ -121,21 +121,21 @@ export default function AboutPage() {
               </h3>
               <div className="space-y-6 text-muted-foreground">
                 <p>
-                  Chinese Name Generator was born from a simple observation: in our increasingly 
-                  connected world, many people desire meaningful connections to Chinese culture, 
-                  but finding an authentic Chinese name that truly represents their identity can be challenging.
+                  Story AI Create Story Book was born from a simple belief: everyone has stories to tell, 
+                  but not everyone has the time, skills, or resources to bring them to life. Whether you're 
+                  a parent wanting to create personalized bedtime stories, a teacher crafting educational content, 
+                  or a writer exploring new creative directions, storytelling should be accessible to all.
                 </p>
                 <p>
-                  Traditional Chinese naming is a beautiful art form that considers not just the sound 
-                  of a name, but its meaning, cultural significance, and how it reflects the person's 
-                  character and aspirations. Our advanced AI technology combines this ancient wisdom 
-                  with modern personalization to create names that are both culturally authentic and personally meaningful.
+                  Our platform combines advanced AI technology with an intuitive interface to transform your 
+                  ideas into complete, illustrated storybooks. From generating engaging narratives to creating 
+                  vivid scene descriptions for illustrations, we handle the technical complexity so you can 
+                  focus on the creative vision.
                 </p>
                 <p>
-                  Whether you're a student preparing for study in China, a professional working with 
-                  Chinese colleagues, or simply someone fascinated by Chinese culture, we're here to 
-                  help you discover a name that truly represents who you are while honoring the rich 
-                  traditions of Chinese naming conventions.
+                  Every story generated is unique, tailored to your input and preferences. Whether you're 
+                  creating a children's picture book, a fantasy adventure, a horror thriller, or any other 
+                  genre, Story AI helps you craft stories that resonate with readers and bring your imagination to life.
                 </p>
               </div>
             </div>
@@ -161,10 +161,10 @@ export default function AboutPage() {
                   <span className="text-primary font-bold">1</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Cultural Authenticity</h4>
+                  <h4 className="font-semibold mb-2">Creativity & Imagination</h4>
                   <p className="text-muted-foreground">
-                    Every name we generate respects traditional Chinese naming conventions 
-                    and cultural significance, ensuring authenticity and appropriateness.
+                    We believe everyone has the potential to create compelling stories. Our AI-powered 
+                    platform removes technical barriers, allowing your creativity to flourish.
                   </p>
                 </div>
               </div>
@@ -174,10 +174,10 @@ export default function AboutPage() {
                   <span className="text-primary font-bold">2</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Personal Meaning</h4>
+                  <h4 className="font-semibold mb-2">Quality & Authenticity</h4>
                   <p className="text-muted-foreground">
-                    We believe names should reflect who you are. Our AI considers your personality, 
-                    preferences, and individual characteristics to create truly personalized names.
+                    Every story is carefully crafted with engaging narratives, emotional depth, and 
+                    vivid descriptions that bring characters and worlds to life.
                   </p>
                 </div>
               </div>
@@ -187,10 +187,10 @@ export default function AboutPage() {
                   <span className="text-primary font-bold">3</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Educational Value</h4>
+                  <h4 className="font-semibold mb-2">Accessibility</h4>
                   <p className="text-muted-foreground">
-                    Beyond just providing names, we help users understand the meaning, 
-                    pronunciation, and cultural context of their Chinese names.
+                    No technical skills required. Whether you're an experienced writer or just starting 
+                    your storytelling journey, our platform makes story creation simple and enjoyable.
                   </p>
                 </div>
               </div>
@@ -200,10 +200,53 @@ export default function AboutPage() {
                   <span className="text-primary font-bold">4</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Accessibility</h4>
+                  <h4 className="font-semibold mb-2">Versatility</h4>
                   <p className="text-muted-foreground">
-                    We make Chinese name generation accessible to everyone, regardless of their 
-                    background or familiarity with Chinese culture.
+                    Support for all genres and styles - from children's bedtime stories to fantasy 
+                    adventures, horror tales, romance, mystery, and more. Your imagination is the limit.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Contact Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+            className="space-y-8"
+          >
+            <div className="bg-muted/30 rounded-2xl p-8 md:p-12">
+              <h3 className="text-2xl font-bold mb-6 text-center">Contact Us</h3>
+              
+              <div className="space-y-6 text-center">
+                <div>
+                  <h4 className="font-semibold mb-3 text-lg">Email</h4>
+                  <p className="text-muted-foreground mb-2">
+                    For general inquiries, support, or questions about our service:
+                  </p>
+                  <a 
+                    href="mailto:gareaukeenan3155@gmail.com" 
+                    className="text-primary hover:text-primary/80 font-medium underline inline-block"
+                  >
+                    gareaukeenan3155@gmail.com
+                  </a>
+                </div>
+                
+                <div className="border-t pt-6">
+                  <h4 className="font-semibold mb-3 text-lg">Refund Requests</h4>
+                  <p className="text-muted-foreground mb-2">
+                    If you need to request a refund, please contact us at:
+                  </p>
+                  <a 
+                    href="mailto:gareaukeenan3155@gmail.com?subject=Refund Request" 
+                    className="text-primary hover:text-primary/80 font-medium underline inline-block"
+                  >
+                    gareaukeenan3155@gmail.com
+                  </a>
+                  <p className="text-sm text-muted-foreground mt-3">
+                    Please include your order details and reason for the refund request in your email.
                   </p>
                 </div>
               </div>
@@ -217,14 +260,14 @@ export default function AboutPage() {
             transition={{ duration: 0.5, delay: 0.8 }}
             className="text-center bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-2xl p-8 md:p-12"
           >
-            <h3 className="text-2xl font-bold mb-4">Ready to Discover Your Chinese Name?</h3>
+            <h3 className="text-2xl font-bold mb-4">Ready to Create Your Story?</h3>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Join thousands of others who have found their perfect Chinese name. 
-              Start your cultural journey today with our AI-powered name generator.
+              Join creators worldwide who are bringing their imagination to life. 
+              Start creating your own AI-powered storybook today.
             </p>
             <Button asChild size="lg" className="font-medium">
-              <Link href="/">
-                Get Started Now
+              <Link href="/create-story-book">
+                Start Creating Now
               </Link>
             </Button>
           </motion.div>

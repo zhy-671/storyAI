@@ -84,7 +84,9 @@ function sameHostOrAlreadyHosted(url: string): boolean {
 
 export async function uploadImageFromUrl(sourceUrl: string, options?: { keyPrefix?: string; objectKey?: string; }): Promise<string> {
   if (!accessKeyId || !secretAccessKey || !region || !endpoint || !bucket) {
-    throw new Error("VOLC TOS env not configured (VOLC_TOS_ACCESS_KEY_ID, VOLC_TOS_SECRET_ACCESS_KEY, VOLC_TOS_REGION, VOLC_TOS_ENDPOINT, VOLC_TOS_BUCKET)");
+    console.warn("[TOS] VOLC TOS env not configured. Returning original URL without upload.");
+    // Return original URL if TOS is not configured (graceful fallback)
+    return sourceUrl;
   }
 
   // Bypass upload for local/static or already-hosted URLs
@@ -126,7 +128,9 @@ export async function uploadImageFromUrl(sourceUrl: string, options?: { keyPrefi
     // @ts-ignore
     TosClient = (await import(moduleName)).TosClient;
   } catch (e) {
-    throw new Error("@volcengine/tos-sdk is not installed. Please install it or disable TOS upload.");
+    console.warn("[TOS] @volcengine/tos-sdk is not installed. Returning original URL without upload.");
+    // Return original URL if SDK is not available (graceful fallback)
+    return sourceUrl;
   }
   const client = new TosClient({
     accessKeyId,

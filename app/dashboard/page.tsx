@@ -1,440 +1,204 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/use-user";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { 
-  Plus, 
-  Search, 
-  Filter, 
-  MoreHorizontal, 
-  Edit, 
-  Trash2, 
-  Share2, 
-  Download,
-  Eye,
-  Calendar,
-  Clock,
-  BookOpen,
-  Users,
-  Zap,
-  TrendingUp
-} from "lucide-react";
+import { motion } from "framer-motion";
 
-type StoryStatus = "completed" | "draft" | "in-progress";
-type StoryType = "Children's Book" | "Short Story" | "Novel" | "Script";
-
-interface Story {
-  id: number;
+interface StoryBook {
+  id: string;
   title: string;
-  type: StoryType;
-  status: StoryStatus;
-  createdAt: string;
-  wordCount: number;
-  language: string;
-  tags: string[];
+  slug?: string;
+  bookcontent?: string;
+  data?: {
+    coverImage?: string;
+    images?: string[];
+  };
 }
 
 export default function DashboardPage() {
   const router = useRouter();
   const { user, loading } = useUser();
-  const [stories, setStories] = useState<Story[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterType, setFilterType] = useState("all");
-  const [activeTab, setActiveTab] = useState("recent");
+  const [storybooks, setStorybooks] = useState<StoryBook[]>([]);
+  const [loadingStories, setLoadingStories] = useState(true);
+  const [thumbs, setThumbs] = useState<Record<string, string>>({});
 
-  // Mock data - in real app, this would come from API
-  const mockStories: Story[] = [
-    {
-      id: 1,
-      title: "The Little Cloud's Adventure",
-      type: "Children's Book",
-      status: "completed",
-      createdAt: "2024-01-15",
-      wordCount: 450,
-      language: "English",
-      tags: ["children", "adventure", "educational"]
-    },
-    {
-      id: 2,
-      title: "Midnight at the Station",
-      type: "Short Story",
-      status: "draft",
-      createdAt: "2024-01-14",
-      wordCount: 1200,
-      language: "English",
-      tags: ["mystery", "suspense", "urban"]
-    },
-    {
-      id: 3,
-      title: "小云朵的冒险",
-      type: "Children's Book",
-      status: "completed",
-      createdAt: "2024-01-13",
-      wordCount: 380,
-      language: "Chinese",
-      tags: ["children", "adventure", "bilingual"]
-    },
-    {
-      id: 4,
-      title: "The Detective's Last Case",
-      type: "Novel",
-      status: "in-progress",
-      createdAt: "2024-01-12",
-      wordCount: 8500,
-      language: "English",
-      tags: ["mystery", "crime", "drama"]
+  // Fetch user's storybooks
+  useEffect(() => {
+    if (!user && !loading) {
+      router.push('/sign-in');
+      return;
     }
-  ];
 
-  const stats = {
-    totalStories: 24,
-    completedStories: 18,
-    totalWords: 45600,
-    thisMonth: 8
-  };
+    if (!user) return;
 
-  const getStatusColor = (status: StoryStatus) => {
-    switch (status) {
-      case "completed": return "bg-green-100 text-green-800";
-      case "draft": return "bg-yellow-100 text-yellow-800";
-      case "in-progress": return "bg-blue-100 text-blue-800";
-      default: return "bg-gray-100 text-gray-800";
-    }
-  };
+    let active = true;
+    (async () => {
+      try {
+        const res = await fetch("/api/storybooks/mine", { cache: "no-store" });
+        
+        if (!res.ok) {
+          console.error(`API Error: ${res.status} ${res.statusText}`);
+          if (active) {
+            setStorybooks([]);
+            setLoadingStories(false);
+          }
+          return;
+        }
+        
+        const data = await res.json();
+        
+        if (active) {
+          setStorybooks(Array.isArray(data) ? data : []);
+          setLoadingStories(false);
+        }
+      } catch (error: any) {
+        console.error("Fetch Error:", error?.message || error);
+        if (active) {
+          setStorybooks([]);
+          setLoadingStories(false);
+        }
+      }
+    })();
+    return () => { active = false; };
+  }, [user, loading, router]);
 
-  const getTypeIcon = (type: StoryType) => {
-    switch (type) {
-      case "Children's Book": return "👶";
-      case "Short Story": return "📖";
-      case "Novel": return "📚";
-      case "Script": return "🎬";
-      default: return "📝";
-    }
-  };
+  // Resolve cover images
+  useEffect(() => {
+    if (storybooks.length === 0) return;
+    
+    let active = true;
+    (async () => {
+      const map: Record<string, string> = {};
+      
+      for (const book of storybooks) {
+        // Try data.coverImage or data.images[0] first
+        const cover = book?.data?.coverImage || book?.data?.images?.[0];
+        if (cover) {
+          map[book.id] = cover;
+        } else if (book.bookcontent) {
+          // Try fetching from bookcontent JSON
+          try {
+            if (!book.bookcontent || (!book.bookcontent.startsWith('http') && !book.bookcontent.startsWith('/'))) {
+              continue;
+            }
+            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+            
+            try {
+              const res = await fetch(book.bookcontent, { 
+                cache: "force-cache",
+                signal: controller.signal
+              });
+              
+              clearTimeout(timeoutId);
+              
+              if (!res.ok) {
+                continue;
+              }
+              
+              const json = await res.json();
+              const coverUrl: string = json.coverImage || json.images?.[0] || "";
+              if (coverUrl) {
+                map[book.id] = coverUrl;
+              }
+            } catch (fetchError: any) {
+              clearTimeout(timeoutId);
+              // Silently fail
+            }
+          } catch (error) {
+            // Silently fail
+          }
+        }
+      }
+      
+      if (active) {
+        setThumbs(map);
+      }
+    })();
+    return () => { active = false; };
+  }, [storybooks]);
 
-  const filteredStories = mockStories.filter(story => {
-    const matchesSearch = story.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterType === "all" || story.type.toLowerCase().includes(filterType.toLowerCase());
-    return matchesSearch && matchesFilter;
-  });
-
-  if (loading) {
+  if (loading || loadingStories) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p>Loading dashboard...</p>
+          <p className="text-muted-foreground">Loading your stories...</p>
         </div>
       </div>
     );
   }
 
   if (!user) {
-    router.push('/sign-in');
     return null;
   }
 
+  const handleBookClick = (book: StoryBook) => {
+    if (book.slug) {
+      router.push(`/story-book/${encodeURIComponent(book.slug)}`);
+    } else {
+      router.push(`/story-book/${book.id}`);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <section className="border-b bg-background/95 backdrop-blur">
-        <div className="container px-4 md:px-6 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">My Stories</h1>
-              <p className="text-muted-foreground">Manage and organize your creative works</p>
+      <div className="container px-4 md:px-6 py-8">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl font-bold mb-8">My Stories</h1>
+          
+          {storybooks.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-muted-foreground text-lg mb-4">You haven't created any stories yet.</p>
+              <button
+                onClick={() => router.push('/create-story-book')}
+                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+              >
+                Create Your First Story
+              </button>
             </div>
-            <Button onClick={() => router.push('/create-story-book')}>
-              <Plus className="h-4 w-4 mr-2" />
-              Create New Story
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Overview */}
-      <section className="py-8 bg-muted/30">
-        <div className="container px-4 md:px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid gap-6 md:grid-cols-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="p-2 bg-blue-100 rounded-lg">
-                        <BookOpen className="h-6 w-6 text-blue-600" />
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
+              {storybooks.map((book, index) => (
+                <motion.div
+                  key={book.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="cursor-pointer group"
+                  onClick={() => handleBookClick(book)}
+                >
+                  <div className="aspect-[3/4] rounded-lg overflow-hidden bg-muted mb-2 group-hover:shadow-lg transition-shadow">
+                    {thumbs[book.id] ? (
+                      <img
+                        src={thumbs[book.id]}
+                        alt={book.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          // Hide broken image
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
                       </div>
-                      <div>
-                        <p className="text-2xl font-bold">{stats.totalStories}</p>
-                        <p className="text-sm text-muted-foreground">Total Stories</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="p-2 bg-green-100 rounded-lg">
-                        <Zap className="h-6 w-6 text-green-600" />
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold">{stats.completedStories}</p>
-                        <p className="text-sm text-muted-foreground">Completed</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="p-2 bg-purple-100 rounded-lg">
-                        <TrendingUp className="h-6 w-6 text-purple-600" />
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold">{stats.totalWords.toLocaleString()}</p>
-                        <p className="text-sm text-muted-foreground">Total Words</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="p-2 bg-orange-100 rounded-lg">
-                        <Calendar className="h-6 w-6 text-orange-600" />
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold">{stats.thisMonth}</p>
-                        <p className="text-sm text-muted-foreground">This Month</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-8">
-        <div className="container px-4 md:px-6">
-          <div className="max-w-6xl mx-auto">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-              <div className="flex items-center justify-between">
-                <TabsList>
-                  <TabsTrigger value="recent">Recent</TabsTrigger>
-                  <TabsTrigger value="all">All Stories</TabsTrigger>
-                  <TabsTrigger value="drafts">Drafts</TabsTrigger>
-                  <TabsTrigger value="completed">Completed</TabsTrigger>
-                </TabsList>
-
-                <div className="flex items-center gap-4">
-                  <div className="relative">
-                    <Search className="h-4 w-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-                    <Input
-                      placeholder="Search stories..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 w-64"
-                    />
+                    )}
                   </div>
-                  <Button variant="outline" size="sm">
-                    <Filter className="h-4 w-4 mr-2" />
-                    Filter
-                  </Button>
-                </div>
-              </div>
-
-              <TabsContent value="recent" className="space-y-4">
-                <div className="grid gap-4">
-                  {filteredStories.slice(0, 6).map((story, index) => (
-                    <motion.div
-                      key={story.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <Card className="hover:shadow-md transition-shadow">
-                        <CardContent className="p-6">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4">
-                              <div className="text-2xl">{getTypeIcon(story.type)}</div>
-                              <div>
-                                <h3 className="font-semibold text-lg">{story.title}</h3>
-                                <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                  <span>{story.type}</span>
-                                  <span>•</span>
-                                  <span>{story.wordCount.toLocaleString()} words</span>
-                                  <span>•</span>
-                                  <span>{story.language}</span>
-                                  <span>•</span>
-                                  <span className="flex items-center">
-                                    <Clock className="h-3 w-3 mr-1" />
-                                    {story.createdAt}
-                                  </span>
-                                </div>
-                                <div className="flex items-center space-x-2 mt-2">
-                                  <Badge className={getStatusColor(story.status)}>
-                                    {story.status}
-                                  </Badge>
-                                  {story.tags.slice(0, 3).map((tag, i) => (
-                                    <Badge key={i} variant="outline" className="text-xs">
-                                      {tag}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Button variant="ghost" size="sm">
-                                <Eye className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                <Edit className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                <Share2 className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                <Download className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="all" className="space-y-4">
-                <div className="grid gap-4">
-                  {filteredStories.map((story, index) => (
-                    <motion.div
-                      key={story.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.05 }}
-                    >
-                      <Card className="hover:shadow-md transition-shadow">
-                        <CardContent className="p-6">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4">
-                              <div className="text-2xl">{getTypeIcon(story.type)}</div>
-                              <div>
-                                <h3 className="font-semibold text-lg">{story.title}</h3>
-                                <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                  <span>{story.type}</span>
-                                  <span>•</span>
-                                  <span>{story.wordCount.toLocaleString()} words</span>
-                                  <span>•</span>
-                                  <span>{story.language}</span>
-                                  <span>•</span>
-                                  <span className="flex items-center">
-                                    <Clock className="h-3 w-3 mr-1" />
-                                    {story.createdAt}
-                                  </span>
-                                </div>
-                                <div className="flex items-center space-x-2 mt-2">
-                                  <Badge className={getStatusColor(story.status)}>
-                                    {story.status}
-                                  </Badge>
-                                  {story.tags.slice(0, 3).map((tag, i) => (
-                                    <Badge key={i} variant="outline" className="text-xs">
-                                      {tag}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Button variant="ghost" size="sm">
-                                <Eye className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                <Edit className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                <Share2 className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                <Download className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="drafts" className="space-y-4">
-                <div className="text-center py-12">
-                  <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No drafts yet</h3>
-                  <p className="text-muted-foreground mb-4">Start creating to see your drafts here</p>
-                  <Button onClick={() => router.push('/create-story-book')}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Create New Story
-                  </Button>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="completed" className="space-y-4">
-                <div className="text-center py-12">
-                  <Zap className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No completed stories yet</h3>
-                  <p className="text-muted-foreground mb-4">Complete your stories to see them here</p>
-                  <Button onClick={() => router.push('/create-story-book')}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Create New Story
-                  </Button>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </div>
+                  <h3 className="text-sm font-medium text-center line-clamp-2 group-hover:text-primary transition-colors">
+                    {book.title || "Untitled"}
+                  </h3>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
-      </section>
+      </div>
     </div>
   );
 }

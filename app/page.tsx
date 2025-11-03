@@ -189,19 +189,19 @@ export default function Home() {
                 className="space-y-4"
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight">
-                  <span className="text-white">Create Amazing</span>
+                  <span className="text-white">Story AI: Your</span>
                   <br />
                     <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">
-                      Story Book
+                      AI Story Writer
                     </span>
                   <br />
                     <span className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
-                      with Story AI
+                      Interactive Storytelling Platform
                     </span>
                 </h1>
               
                 <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-2xl leading-relaxed">
-                Create personalized children's stories in seconds to develop your child's creativity and confidence.
+                Experience the future of storytelling with Story AI, the ultimate AI interactive story platform. Create your own adventure stories with our advanced AI story writer. Generate stories for kids automatically - Use AI to create personalized stories for children instantly. Generate fantasy, science fiction, romance, horror, mystery, and adventure stories in minutes.
                 </p>
               </motion.div>
               
@@ -264,7 +264,7 @@ export default function Home() {
                 >
                   <img 
                     src="/images/story-ai-1.jpeg" 
-                    alt="Story AI Example" 
+                    alt="AI-generated children's storybook example - Dentisit story with CHILDREN genre, created with Story AI Create Story Book tool" 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -286,7 +286,7 @@ export default function Home() {
                   <div className="h-full relative">
                     <img 
                       src="/images/story-book-2.png" 
-                      alt="Story Book Example" 
+                      alt="AI-generated fantasy storybook example - Magic Forest adventure story featuring a young wizard discovering ancient secrets, created with Story AI" 
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -311,7 +311,7 @@ export default function Home() {
                 >
                   <img 
                     src="/images/story-ai-3.jpeg" 
-                    alt="Story AI Example 3" 
+                    alt="AI-generated romance storybook example - Coffee Shop Love story with ROMANCE genre, created with Story AI Create Story Book tool" 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -341,11 +341,11 @@ export default function Home() {
             >
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Unleash your child's creative superpowers
+                  How Story AI Interactive Story Writer Works
                 </span>
               </h2>
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                Foster imagination, creativity, and confidence through personalized storytelling adventures tailored just for them.
+                Our AI story writer platform helps you create interactive stories effortlessly. Design your narrative with story templates and blueprints, then let our advanced AI story generator bring your characters and plot to life. Perfect for creating fantasy adventures, romance tales, horror stories, mystery novels, and more.
               </p>
             </motion.div>
 
@@ -361,7 +361,7 @@ export default function Home() {
                 <div className="relative mx-auto w-156 h-80 rounded-2xl overflow-hidden shadow-xl">
                   <img 
                     src="/images/storybook_1.png" 
-                    alt="Magic Castle Story" 
+                    alt="AI-generated children's storybook - Magic Castle adventure story showcasing Story AI's ability to spark endless imagination in young readers" 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
@@ -387,7 +387,7 @@ export default function Home() {
                 <div className="relative mx-auto w-156 h-80 rounded-2xl overflow-hidden shadow-xl">
                   <img 
                     src="/images/storybook_2.png" 
-                    alt="Hero Story Book" 
+                    alt="Personalized AI storybook example - Hero-themed children's story where the child becomes the hero of every tale, created with Story AI" 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
@@ -413,7 +413,7 @@ export default function Home() {
                 <div className="relative mx-auto w-156 h-80 rounded-2xl overflow-hidden shadow-xl">
                   <img 
                     src="/images/storybook_3.png" 
-                    alt="Emotions Story Book" 
+                    alt="AI-generated emotional storybook - Children's story exploring emotions safely, helping kids develop empathy through Story AI storytelling" 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
@@ -439,7 +439,7 @@ export default function Home() {
                 <div className="relative mx-auto w-156 h-80 rounded-2xl overflow-hidden shadow-xl">
                   <img 
                     src="/images/storybook_4.png" 
-                    alt="Memories Story Book" 
+                    alt="Personalized bedtime storybook - Magical family memory creation example showcasing Story AI's ability to create treasured bedtime stories" 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
@@ -458,6 +458,101 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Generate Stories for Kids Section */}
+      <section className="py-24 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 dark:from-slate-800 dark:to-slate-900">
+        <div className="container px-4 md:px-6">
+          <div className="mx-auto max-w-7xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center space-y-6 mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                <span className="bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
+                  Generate Stories for Kids Automatically
+                </span>
+              </h2>
+              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                With Story AI's AI story generator, you can easily generate personalized stories for kids. Simply enter a story theme or keywords, and our AI will automatically create complete story content including vivid characters, engaging plots, detailed scene descriptions, and illustration prompts. The entire process is completely free and requires no registration. Perfect for parents and teachers to create unique bedtime stories, educational stories, and teaching content for children.
+              </p>
+              <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                Generating stories for kids has never been easier - Story AI makes you the favorite storyteller for children!
+              </p>
+            </motion.div>
+
+            <div className="grid gap-8 md:grid-cols-3">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <div className="text-4xl mb-4">✨</div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  One-Click Children's Story Generation
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  Enter a story theme, and AI automatically generates complete children's stories with character settings, plot development, and scene descriptions, making storytelling for kids easy and fun.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <div className="text-4xl mb-4">📚</div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  Multiple Story Types
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  Supports generating various types including fantasy adventures, fairy tales, educational stories, animal stories, friendship stories, and growth stories to meet the needs of children of different ages.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <div className="text-4xl mb-4">🎨</div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  Auto-Generate Illustration Prompts
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  Each story includes detailed illustration prompts to help you or AI generate beautiful story illustrations, allowing kids to enjoy a visual feast while listening to stories.
+                </p>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="mt-12 text-center"
+            >
+              <Button
+                onClick={() => router.push('/create-story-book')}
+                size="lg"
+                className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-10 py-6 text-lg h-auto font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              >
+                <Wand2 className="mr-3 h-6 w-6" />
+                Start Generating Stories for Kids Now
+                <ArrowRight className="ml-3 h-6 w-6" />
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Story Types Section */}
       <section className="py-24 bg-white dark:bg-slate-900">
         <div className="container px-4 md:px-6">
@@ -471,11 +566,11 @@ export default function Home() {
             >
               <h2 className="text-5xl md:text-6xl font-bold tracking-tight">
                 <span className="bg-gradient-to-r from-blue-600 to-slate-600 bg-clip-text text-transparent">
-                  Every Story Type
+                  Craft Your Story, Any Genre
                 </span>
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                From children's bedtime stories to epic novels, our AI adapts to your creative vision
+                From fantasy to mystery, Story AI transforms your ideas into page-turning tales. Our AI story writer supports fantasy, science fiction, romance, horror, mystery, adventure, historical fiction, drama, comedy, and action genres. Your imagination, amplified by interactive storytelling!
               </p>
             </motion.div>
 
@@ -619,11 +714,11 @@ export default function Home() {
             >
               <h2 className="text-5xl md:text-6xl font-bold tracking-tight">
                 <span className="bg-gradient-to-r from-slate-600 to-blue-600 bg-clip-text text-transparent">
-                  Why Choose Story AI?
+                  Discover Our Story AI Features
                 </span>
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Powerful features designed to make storytelling effortless and enjoyable
+                Discover how Story AI transforms storytelling – from creative generation to interactive engagement. Our AI story writer offers intuitive story generation, dynamic animations, and seamless interactivity for all your story creation needs.
               </p>
             </motion.div>
             
@@ -676,15 +771,14 @@ export default function Home() {
               className="space-y-10"
             >
               <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">
-                 Ready to spark your child's 
+                 Ready to Start Your
                 <br />
                 <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                imagination?
+                AI Interactive Story?
                 </span>
               </h2>
               <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-                Join thousands of creators who are already using Story AI to bring their ideas to life. 
-                Start creating your first story in minutes.
+                Join thousands of authors and creators who are already using Story AI's interactive storytelling platform to bring their ideas to life. Our AI story writer helps you create unique interactive stories, design story templates, and build engaging narratives. Start creating your first interactive story in minutes – try it now! Generate up to 3 interactive stories completely free.
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <Button

@@ -39,13 +39,7 @@ export function Footer() {
         <div className="container flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row md:py-0">
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-              Built by{" "}
-              <Link
-                href="https://Raphael.app"
-                className="font-medium underline underline-offset-4"
-              >
-                Raphael Starter
-              </Link>
+              © 2025 Story AI. All rights reserved.
             </p>
           </div>
         </div>
@@ -56,40 +50,27 @@ export function Footer() {
   return (
     <footer className="border-t">
       <div className="container px-4 py-8 md:py-12">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6">
-          <div className="col-span-full lg:col-span-2">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col items-center text-center">
             <Logo />
-            <p className="mt-4 text-sm text-muted-foreground">
-              Create Stories That Feel Alive — Powered by Story AI. With Story AI Create Story Book, anyone can turn imagination into beautiful illustrated tales. Our intelligent story generator helps you write, design, and publish storybooks in minutes — whether it’s a bedtime story, fantasy adventure, or photo book. This AI-powered story creator understands your ideas, builds vivid characters, and weaves emotional plots automatically. Just describe your idea, and watch your AI storybook come to life. Perfect for writers, teachers, parents, or anyone who loves storytelling — Story AI Create Story Book makes creativity simple, fun, and limitless. Start creating your own storybook today and share your imagination with the world.
+            <p className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-2xl">
+              Story AI is a professional AI-powered storybook creation platform. We help writers, educators, and creative individuals transform their ideas into complete, illustrated storybooks using advanced artificial intelligence technology. Our platform supports multiple genres including children's stories, fantasy adventures, horror tales, romance, mystery, and more. Create personalized storybooks with engaging narratives and vivid illustrations in minutes.
             </p>
           </div>
-          <div className="col-span-2 grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-4">
-            {footerLinks.map((group) => (
-              <div key={group.title} className="flex flex-col gap-3">
-                <h3 className="text-sm font-medium">{group.title}</h3>
-                <nav className="flex flex-col gap-2">
-                  {group.links.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            ))}
-          </div>
         </div>
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
-          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            Built by{" "}
-            <Link href="#" className="font-medium underline underline-offset-4">
-              Raphael Starter
-            </Link>
-            .
+        <div className="mt-12 max-w-4xl mx-auto px-4 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
+          <p className="text-center text-sm text-muted-foreground md:text-left">
+            © 2025 Story AI. All rights reserved.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+            <Link href="/about" className="hover:text-primary transition-colors">About</Link>
+            <span className="text-muted-foreground/50">•</span>
+            <Link href="/contact" className="hover:text-primary transition-colors">Contact</Link>
+            <span className="text-muted-foreground/50">•</span>
+            <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <span className="text-muted-foreground/50">•</span>
+            <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
+          </div>
         </div>
       </div>
     </footer>
