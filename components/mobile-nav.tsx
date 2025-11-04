@@ -36,6 +36,7 @@ export function MobileNav({ items, user, isDashboard }: MobileNavProps) {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={true}
               className="text-lg font-semibold text-muted-foreground transition-colors hover:text-primary"
             >
               {item.label}
@@ -52,7 +53,7 @@ export function MobileNav({ items, user, isDashboard }: MobileNavProps) {
                 <>
                   {/* After login, hide Profile and show My Story only */}
                   <Button asChild variant="outline" className="w-full">
-                    <Link href="/dashboard">My Story</Link>
+                    <Link href="/dashboard" prefetch={true}>My Story</Link>
                   </Button>
                 </>
               )}
@@ -65,10 +66,10 @@ export function MobileNav({ items, user, isDashboard }: MobileNavProps) {
           ) : (
             <div className="flex flex-col gap-2">
               <Button asChild variant="outline" className="w-full">
-                <Link href="/sign-in">Sign in</Link>
+                <Link href="/sign-in" prefetch={true}>Sign in</Link>
               </Button>
               <Button asChild variant="default" className="w-full">
-                <Link href="/sign-up">Sign up</Link>
+                <Link href="/sign-up" prefetch={true}>Sign up</Link>
               </Button>
             </div>
           )}

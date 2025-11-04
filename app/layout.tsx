@@ -13,17 +13,20 @@ const baseUrl = process.env.BASE_URL
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
-  title: "Story AI - Interactive AI Story Writer | Create Your Own Adventure Story Books | Generate Stories for Kids",
-  description: "Experience the future of storytelling with Story AI, the ultimate AI interactive story platform. Create, explore, and share unique interactive stories with our advanced AI story writer. Generate stories for kids automatically - Use AI to automatically generate personalized stories for children, including complete plots, characters, and illustration prompts. Generate fantasy, science fiction, romance, horror, mystery, adventure stories and more. Free AI story generator for novels, children's books, and photo books.",
-  keywords: "Story AI, AI story writer, AI interactive story, interactive storytelling, AI story generator, AI story maker, AI book creator, story creation platform, AI story platform, story generator, story writer AI, interactive story creator, AI storytelling tool, fantasy story generator, romance story maker, horror story creator, children's story AI, photo book generator, story template, story blueprint, AI writing assistant, story creation tool, creative writing AI, narrative generator, generate stories for kids, auto generate children stories, tell stories to kids, AI children story generator, kids story generator, bedtime stories generator, personalized stories for children, story generator for kids, create children stories",
+  title: "Story AI - Interactive AI Story Generator & Writer",
+  description: "Create unique interactive stories with Story AI's advanced story generator. Generate personalized stories for kids, fantasy adventures, romance, horror & more. Start creating now!",
+  keywords: "Story AI, AI story generator, interactive storytelling, story creator, kids stories, fantasy stories, romance stories, horror stories, AI book creator, children's books",
   icons: {
-    icon: "/images/storybook.ico",
-    shortcut: "/images/storybook.ico",
-    apple: "/images/storybook.ico",
+    icon: [
+      { url: `${baseUrl}/images/storybook.ico`, sizes: "32x32", type: "image/x-icon" },
+      { url: `${baseUrl}/images/storybook_logo.png`, sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: `${baseUrl}/images/storybook.ico`,
+    apple: `${baseUrl}/images/storybook_logo.png`,
   },
   openGraph: {
     title: "Story AI - Interactive AI Story Writer | Create Your Own Adventure",
-    description: "Create your own AI interactive stories with Story AI. Advanced AI story writer platform for generating fantasy, romance, horror, mystery, and adventure stories. Free story creation tool for novels, children's books, and photo books.",
+    description: "Create your own AI interactive stories with Story AI. Advanced AI story writer platform for generating fantasy, romance, horror, mystery, and adventure stories. Story creation tool for novels, children's books, and photo books.",
     type: "website",
     url: baseUrl,
     images: [
@@ -38,7 +41,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Story AI - Interactive AI Story Writer | Create Your Own Adventure",
-    description: "Experience the future of storytelling with Story AI. Create unique interactive stories with our advanced AI story writer. Free AI story generator for all genres.",
+    description: "Experience the future of storytelling with Story AI. Create unique interactive stories with our advanced AI story writer. AI story generator for all genres.",
   },
 };
 
@@ -87,7 +90,7 @@ export default async function RootLayout({
                   "width": 512,
                   "height": 512
                 },
-                "description": "Story AI helps creators generate AI-powered storybooks with illustrations in minutes. Free tool for creating personalized stories, children's books, and photo books."
+                "description": "Story AI helps creators generate AI-powered storybooks with illustrations in minutes. Professional tool for creating personalized stories, children's books, and photo books."
               })
             }}
           />
@@ -157,10 +160,10 @@ export default async function RootLayout({
                   },
                   {
                     "@type": "Question",
-                    "name": "Is Story AI free to use?",
+                    "name": "How do I get started with Story AI?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Yes! Story AI offers free story creation with unlimited usage. You can generate interactive stories, design story templates, and create story blueprints without any sign-up requirements."
+                      "text": "Getting started with Story AI is easy! Simply sign up for an account to begin creating interactive stories. You can generate interactive stories, design story templates, and create story blueprints. Sign up is quick and easy."
                     }
                   },
                   {
@@ -176,7 +179,7 @@ export default async function RootLayout({
                     "name": "How to generate stories for kids automatically?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "With Story AI, you can easily generate personalized stories for kids. Simply enter a story theme or keywords, and our AI story generator will automatically create complete story content including characters, plotlines, scene descriptions, and illustration prompts. The entire process is completely free and requires no registration. Perfect for parents and teachers to create unique bedtime stories and educational stories for children."
+                      "text": "With Story AI, you can easily generate personalized stories for kids. Simply enter a story theme or keywords, and our AI story generator will automatically create complete story content including characters, plotlines, scene descriptions, and illustration prompts. Perfect for parents and teachers to create unique bedtime stories and educational stories for children."
                     }
                   },
                   {

@@ -18,8 +18,8 @@ export default function Home() {
   const features = [
     {
       icon: <Zap className="h-8 w-8" />,
-      title: "Instant Creation",
-      description: "Start creating stories immediately without any registration or login process",
+      title: "Fast Creation",
+      description: "Start creating stories quickly with our streamlined process",
       color: "from-yellow-400 to-orange-500",
       bgColor: "bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20"
     },
@@ -46,8 +46,8 @@ export default function Home() {
     },
     {
       icon: <Shield className="h-8 w-8" />,
-      title: "100% Free",
-      description: "Unlimited usage with no hidden costs or restrictions",
+      title: "Secure & Reliable",
+      description: "Safe and reliable platform for your creative projects",
       color: "from-emerald-400 to-teal-500",
       bgColor: "bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20"
     },
@@ -189,19 +189,31 @@ export default function Home() {
                 className="space-y-4"
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight">
-                  <span className="text-white">Story AI: Your</span>
+                  <motion.span 
+                    className="text-white"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  >
+                    Story AI: Your
+                  </motion.span>
                   <br />
-                    <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">
+                    <motion.span 
+                      className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.8, delay: 0.6 }}
+                    >
                       AI Story Writer
-                    </span>
+                    </motion.span>
                   <br />
-                    <span className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+                    <span className="text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
                       Interactive Storytelling Platform
                     </span>
                 </h1>
               
-                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-2xl leading-relaxed">
-                Experience the future of storytelling with Story AI, the ultimate AI interactive story platform. Create your own adventure stories with our advanced AI story writer. Generate stories for kids automatically - Use AI to create personalized stories for children instantly. Generate fantasy, science fiction, romance, horror, mystery, and adventure stories in minutes.
+                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-200 max-w-2xl leading-relaxed">
+                Experience the future of storytelling with Story AI, the ultimate AI interactive story platform. Create your own adventure stories with our advanced AI story writer. Generate stories for kids automatically - Use AI to create personalized stories for children. Generate fantasy, science fiction, romance, horror, mystery, and adventure stories in minutes.
                 </p>
               </motion.div>
               
@@ -215,35 +227,14 @@ export default function Home() {
               <Button
                 onClick={() => router.push('/create-story-book')}
                 size="lg"
-                  className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-8 py-4 text-lg h-auto font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-4 sm:px-6 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg h-auto font-bold rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
               >
-                  <Wand2 className="mr-2 h-5 w-5" />
-                  Start Creating Story
-                <ArrowRight className="ml-2 h-5 w-5" />
+                  <Wand2 className="mr-1.5 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="whitespace-nowrap">Start Creating Story</span>
+                <ArrowRight className="ml-1.5 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
                 
               
-              </motion.div>
-
-              {/* Stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7 }}
-                className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 pt-4 sm:pt-6 md:pt-8"
-              >
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">10K+</div>
-                  <div className="text-sm sm:text-base text-gray-300">Stories Created</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">50+</div>
-                  <div className="text-sm sm:text-base text-gray-300">Story Types</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">100%</div>
-                  <div className="text-sm sm:text-base text-gray-300">Free to Use</div>
-                </div>
               </motion.div>
               </motion.div>
               
@@ -475,7 +466,7 @@ export default function Home() {
                 </span>
               </h2>
               <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                With Story AI's AI story generator, you can easily generate personalized stories for kids. Simply enter a story theme or keywords, and our AI will automatically create complete story content including vivid characters, engaging plots, detailed scene descriptions, and illustration prompts. The entire process is completely free and requires no registration. Perfect for parents and teachers to create unique bedtime stories, educational stories, and teaching content for children.
+                With Story AI's AI story generator, you can easily generate personalized stories for kids. Simply enter a story theme or keywords, and our AI will automatically create complete story content including vivid characters, engaging plots, detailed scene descriptions, and illustration prompts. Perfect for parents and teachers to create unique bedtime stories, educational stories, and teaching content for children.
               </p>
               <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
                 Generating stories for kids has never been easier - Story AI makes you the favorite storyteller for children!
@@ -542,11 +533,11 @@ export default function Home() {
               <Button
                 onClick={() => router.push('/create-story-book')}
                 size="lg"
-                className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-10 py-6 text-lg h-auto font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-4 md:py-5 lg:py-6 text-sm sm:text-base md:text-lg h-auto font-bold rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
               >
-                <Wand2 className="mr-3 h-6 w-6" />
-                Start Generating Stories for Kids Now
-                <ArrowRight className="ml-3 h-6 w-6" />
+                <Wand2 className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                <span className="whitespace-nowrap">Start Generating Stories for Kids Now</span>
+                <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
               </Button>
             </motion.div>
           </div>
@@ -647,10 +638,10 @@ export default function Home() {
                 </div>
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    Unlimited Creativity
+                    Creative Possibilities
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Every story is unique with endless possibilities for characters, settings, and adventures
+                    Every story is unique with diverse possibilities for characters, settings, and adventures
                   </p>
                 </div>
               </motion.div>
@@ -668,10 +659,10 @@ export default function Home() {
                 </div>
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    Instant Magic
+                    Beautiful Illustrations
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Beautiful illustrations bring stories to life in seconds, creating immediate wonder and engagement
+                    Beautiful illustrations bring stories to life, creating wonder and engagement for readers
                   </p>
                 </div>
               </motion.div>
@@ -778,30 +769,18 @@ export default function Home() {
                 </span>
               </h2>
               <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-                Join thousands of authors and creators who are already using Story AI's interactive storytelling platform to bring their ideas to life. Our AI story writer helps you create unique interactive stories, design story templates, and build engaging narratives. Start creating your first interactive story in minutes – try it now! Generate up to 3 interactive stories completely free.
+                Story AI's interactive storytelling platform helps you bring your ideas to life. Our AI story writer helps you create unique interactive stories, design story templates, and build engaging narratives. Start creating your first interactive story in minutes – try it now!
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <Button
                   onClick={() => router.push('/create-story-book')}
                   size="lg"
-                  className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-10 py-6 text-xl h-auto font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105"
+                  className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-4 md:py-5 lg:py-6 text-sm sm:text-base md:text-lg lg:text-xl h-auto font-bold rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
                 >
-                  <Wand2 className="mr-3 h-6 w-6" />
-                  Start Creating Now
-                  <ArrowRight className="ml-3 h-6 w-6" />
+                  <Wand2 className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                  <span className="whitespace-nowrap">Start Creating Now</span>
+                  <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
                 </Button>
-              </div>
-              
-              <div className="flex flex-wrap justify-center gap-8 pt-8">
-                <div className="flex items-center gap-2 text-gray-200">
-                  <Heart className="w-5 h-5 text-red-400" />
-                  <span className="font-semibold">100% Free</span>
-                </div>
-                
-                <div className="flex items-center gap-2 text-gray-200">
-                  <Zap className="w-5 h-5 text-yellow-400" />
-                  <span className="font-semibold">Unlimited Usage</span>
-                </div>
               </div>
             </motion.div>
           </div>

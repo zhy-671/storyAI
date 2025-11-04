@@ -7,6 +7,7 @@ import {
   createOrUpdateSubscription,
   addCreditsToCustomer,
 } from "@/utils/supabase/subscriptions";
+import { createServiceRoleClient } from "@/utils/supabase/service-role";
 
 const CREEM_WEBHOOK_SECRET = process.env.CREEM_WEBHOOK_SECRET!;
 
@@ -96,9 +97,28 @@ async function handleCheckoutCompleted(event: CreemWebhookEvent) {
       const creditsRaw = checkout.order?.metadata?.credits || checkout.metadata?.credits;
       const credits = typeof creditsRaw === "string" ? parseInt(creditsRaw, 10) : Number(creditsRaw || 0);
       
+      // Get product_id from metadata for bonus calculation
+      const productId = checkout.order?.metadata?.product_id || checkout.metadata?.product_id;
+      
+      // Pro Pack (300 credits) and Creator Pack (1000 credits) get 10% bonus
+      const PRO_PACK_PRODUCT_ID = "prod_3kgAMq0cFcKariXrvemDGJ";
+      const CREATOR_PACK_PRODUCT_ID = "prod_2jSDE8g41GeKAJ8Dyis1dp";
+      
+      let bonusCredits = 0;
+      let bonusDescription = "";
+      
+      if (productId === PRO_PACK_PRODUCT_ID || productId === CREATOR_PACK_PRODUCT_ID) {
+        bonusCredits = Math.floor(credits * 0.1); // 10% bonus
+        bonusDescription = ` + ${bonusCredits} bonus credits (10% bonus)`;
+        console.log(`Premium pack purchase detected (${productId}), adding ${bonusCredits} bonus credits`);
+      }
+      
       console.log("Processing credit purchase:", {
         creditsRaw,
         credits,
+        bonusCredits,
+        totalCredits: credits + bonusCredits,
+        productId,
         orderId: checkout.order?.id,
       });
 
@@ -107,12 +127,25 @@ async function handleCheckoutCompleted(event: CreemWebhookEvent) {
         throw new Error(`Invalid credits amount: ${creditsRaw}`);
       }
 
+      // Add base credits
       await addCreditsToCustomer(
         customerId,
         credits,
         checkout.order?.id,
-        `Purchased ${credits} credits`
+        `Purchased ${credits} credits${bonusDescription}`
       );
+      
+      // Add bonus credits if applicable
+      if (bonusCredits > 0) {
+        await addCreditsToCustomer(
+          customerId,
+          bonusCredits,
+          checkout.order?.id,
+          `Bonus credits: ${bonusCredits} (10% bonus for premium pack)`
+        );
+        console.log(`Successfully added ${bonusCredits} bonus credits to customer`);
+      }
+      
       console.log("Successfully added credits to customer");
     }
     // If subscription exists, create or update it
@@ -138,6 +171,44 @@ async function handleSubscriptionActive(event: CreemWebhookEvent) {
 
     // Create or update subscription
     await createOrUpdateSubscription(subscription, customerId);
+
+    // Get monthly credits from metadata
+    const creditsRaw = subscription.metadata?.credits;
+    const credits = typeof creditsRaw === "string" ? parseInt(creditsRaw, 10) : Number(creditsRaw || 0);
+
+    if (credits > 0) {
+      // Check if this is the first subscription (check if user has any previous subscription history)
+      const supabase = createServiceRoleClient();
+      const { data: existingSubs, error: checkError } = await supabase
+        .from("subscriptions")
+        .select("id")
+        .eq("customer_id", customerId)
+        .neq("creem_subscription_id", subscription.id)
+        .limit(1);
+
+      const isFirstSubscription = !checkError && (!existingSubs || existingSubs.length === 0);
+
+      // Add monthly credits
+      await addCreditsToCustomer(
+        customerId,
+        credits,
+        undefined,
+        `Monthly subscription credits: ${credits}`
+      );
+
+      // Add first-time subscription bonus (20 credits)
+      if (isFirstSubscription) {
+        await addCreditsToCustomer(
+          customerId,
+          20,
+          undefined,
+          `First subscription bonus: 20 credits`
+        );
+        console.log(`Added first subscription bonus of 20 credits to customer ${customerId}`);
+      }
+
+      console.log(`Added ${credits} monthly subscription credits to customer ${customerId}`);
+    }
   } catch (error) {
     console.error("Error handling subscription active:", error);
     throw error;
@@ -155,6 +226,21 @@ async function handleSubscriptionPaid(event: CreemWebhookEvent) {
       subscription.metadata?.user_id
     );
     await createOrUpdateSubscription(subscription, customerId);
+
+    // Get monthly credits from metadata
+    const creditsRaw = subscription.metadata?.credits;
+    const credits = typeof creditsRaw === "string" ? parseInt(creditsRaw, 10) : Number(creditsRaw || 0);
+
+    if (credits > 0) {
+      // Add monthly credits for renewal
+      await addCreditsToCustomer(
+        customerId,
+        credits,
+        undefined,
+        `Monthly subscription renewal: ${credits} credits`
+      );
+      console.log(`Added ${credits} monthly subscription renewal credits to customer ${customerId}`);
+    }
   } catch (error) {
     console.error("Error handling subscription paid:", error);
     throw error;

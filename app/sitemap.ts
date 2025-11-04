@@ -7,6 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/`, lastModified: new Date() },
     { url: `${base}/story-book`, lastModified: new Date() },
     { url: `${base}/create-story-book`, lastModified: new Date() },
+    { url: `${base}/photo-to-coloring`, lastModified: new Date() },
   ];
 
   try {

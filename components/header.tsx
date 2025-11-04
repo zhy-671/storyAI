@@ -45,6 +45,8 @@ export default function Header({ user }: HeaderProps) {
     { label: "Home", href: "/" },
     { label: "Create", href: "/create-story-book" },
     { label: "Story Book", href: "/story-book" },
+    { label: "Price", href: "/credits" },
+    // { label: "Photo to Coloring", href: "/photo-to-coloring" }, // Hidden temporarily
   ];
 
   // Dashboard items - empty array as we don't want navigation items in dashboard
@@ -66,6 +68,7 @@ export default function Header({ user }: HeaderProps) {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={true}
               className="text-lg font-semibold text-muted-foreground transition-colors hover:text-primary"
             >
               {item.label}
@@ -92,7 +95,7 @@ export default function Header({ user }: HeaderProps) {
                 <>
                   {/* After login, hide Profile and show My Story only */}
                   <Button asChild size="sm" variant="outline">
-                    <Link href="/dashboard">My Story</Link>
+                    <Link href="/dashboard" prefetch={true}>My Story</Link>
                   </Button>
                 </>
               )}
@@ -105,10 +108,10 @@ export default function Header({ user }: HeaderProps) {
           ) : (
             <div className="hidden md:flex gap-2">
               <Button asChild size="sm" variant="outline">
-                <Link href="/sign-in">Sign in</Link>
+                <Link href="/sign-in" prefetch={true}>Sign in</Link>
               </Button>
               <Button asChild size="sm">
-                <Link href="/sign-up">Sign up</Link>
+                <Link href="/sign-up" prefetch={true}>Sign up</Link>
               </Button>
             </div>
           )}

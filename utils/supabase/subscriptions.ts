@@ -72,10 +72,10 @@ export async function createOrUpdateSubscription(
         ? creemSubscription?.product
         : creemSubscription?.product?.id,
     status: creemSubscription?.status,
-    current_period_start: creemSubscription?.current_period_start_date,
-    current_period_end: creemSubscription?.current_period_end_date,
+    current_period_start: creemSubscription?.current_period_start_date || new Date().toISOString(),
+    current_period_end: creemSubscription?.current_period_end_date || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // Default to 30 days from now
     canceled_at: creemSubscription?.canceled_at,
-    metadata: creemSubscription?.metadata,
+    metadata: creemSubscription?.metadata || {},
     updated_at: new Date().toISOString(),
   };
 

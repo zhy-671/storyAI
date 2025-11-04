@@ -164,10 +164,10 @@ export default function StoryBookPlaza() {
           <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-gradient-to-br from-indigo-300/20 via-fuchsia-300/10 to-sky-300/20 blur-3xl dark:from-indigo-900/20 dark:via-fuchsia-900/10 dark:to-sky-900/20" />
           <div className="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-gradient-to-tr from-sky-300/20 via-purple-300/10 to-indigo-300/20 blur-3xl dark:from-sky-900/20 dark:via-purple-900/10 dark:to-indigo-900/20" />
         </div>
-        <div className="container px-4 md:px-6 py-12">
-          <div className="max-w-6xl mx-auto text-center space-y-4">
-            <motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.5}} className="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-sky-600 dark:from-indigo-400 dark:via-fuchsia-400 dark:to-sky-400">Story Book Plaza</motion.h1>
-            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">Browse a curated collection of AI storybooks. Read, enjoy, and get inspired to create your own.</p>
+        <div className="container px-3 sm:px-4 md:px-6 py-8 sm:py-10 md:py-12">
+          <div className="max-w-6xl mx-auto text-center space-y-3 sm:space-y-4">
+            <motion.h1 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.5}} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-sky-600 dark:from-indigo-400 dark:via-fuchsia-400 dark:to-sky-400 px-2">Story Book Plaza</motion.h1>
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto px-3 sm:px-4">Browse a curated collection of AI storybooks. Read, enjoy, and get inspired to create your own.</p>
           </div>
         </div>
       </section>
@@ -176,11 +176,11 @@ export default function StoryBookPlaza() {
 
       {/* Categories removed per request */}
 
-      <section className="py-10">
-        <div className="container px-4 md:px-6 max-w-6xl mx-auto">
-          <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="py-6 sm:py-8 md:py-10">
+        <div className="container px-3 sm:px-4 md:px-6 max-w-7xl mx-auto">
+          <div className="grid gap-4 sm:gap-5 md:gap-6 lg:gap-7 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {loading && (
-              <div className="col-span-full text-center text-muted-foreground py-12">Loading...</div>
+              <div className="col-span-full text-center text-muted-foreground py-8 sm:py-12 text-sm sm:text-base">Loading...</div>
             )}
             {filtered.map((s, i) => {
               const displayTitle = (s.title || "").trim()
@@ -194,7 +194,7 @@ export default function StoryBookPlaza() {
               <motion.div key={s.id} initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.5, delay:i*0.1}}>
                 <Card className={`group h-full overflow-hidden border-0 bg-white/80 dark:bg-slate-900/70 backdrop-blur-sm shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${s.featured ? 'ring-2 ring-primary' : ''}`}>
                   {s.featured && (
-                    <div className="absolute -top-2 -right-2 z-10"><Badge className="bg-primary text-primary-foreground shadow">Featured</Badge></div>
+                    <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 z-10"><Badge className="bg-primary text-primary-foreground shadow text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1">Featured</Badge></div>
                   )}
                   <div className="relative">
                     <div className="aspect-[2/3] w-full bg-muted/70 dark:bg-slate-800/60 overflow-hidden relative">
@@ -212,27 +212,27 @@ export default function StoryBookPlaza() {
                         />
                       ) : (
                         <div className="w-full h-full flex flex-col items-center justify-center text-muted-foreground">
-                          <span className="text-4xl mb-2">{s.icon}</span>
-                          <span className="text-sm">No Image</span>
+                          <span className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-2">{s.icon}</span>
+                          <span className="text-xs sm:text-sm">No Image</span>
                         </div>
                       )}
                     </div>
-                    <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between bg-gradient-to-t from-black/40 to-transparent">
-                      <div className="flex items-center gap-2">
-                        <Button variant="secondary" size="sm" onClick={()=>router.push(`/story-book/${slugOrId}`)} className="backdrop-blur bg-white/85">
-                          <Eye className="h-4 w-4 mr-1" />Read
+                    <div className="absolute inset-x-0 bottom-0 p-2 sm:p-3 flex items-center justify-between bg-gradient-to-t from-black/40 to-transparent">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <Button variant="secondary" size="sm" onClick={()=>router.push(`/story-book/${slugOrId}`)} className="backdrop-blur bg-white/85 text-xs sm:text-sm px-2 sm:px-3 h-7 sm:h-8">
+                          <Eye className="h-3 w-3 sm:h-4 sm:w-4 mr-0.5 sm:mr-1" />Read
                         </Button>
-                        <Button size="sm" onClick={()=>router.push('/create-story-book')} className="backdrop-blur bg-primary text-primary-foreground shadow">
-                          <Wand2 className="h-4 w-4 mr-1" />Create
+                        <Button size="sm" onClick={()=>router.push('/create-story-book')} className="backdrop-blur bg-primary text-primary-foreground shadow text-xs sm:text-sm px-2 sm:px-3 h-7 sm:h-8">
+                          <Wand2 className="h-3 w-3 sm:h-4 sm:w-4 mr-0.5 sm:mr-1" />Create
                         </Button>
                       </div>
-                      <Button variant="ghost" size="icon" onClick={()=>toggleFavorite(s.id)} className="hover:bg-white/20">
-                        <Heart className={`h-4 w-4 ${favorites.has(s.id) ? 'fill-red-500 text-red-500' : 'text-white'}`} />
+                      <Button variant="ghost" size="icon" onClick={()=>toggleFavorite(s.id)} className="hover:bg-white/20 h-7 w-7 sm:h-8 sm:w-8">
+                        <Heart className={`h-3 w-3 sm:h-4 sm:w-4 ${favorites.has(s.id) ? 'fill-red-500 text-red-500' : 'text-white'}`} />
                       </Button>
                     </div>
                   </div>
-                  <CardHeader className="pb-4">
-                    <CardTitle className="line-clamp-1">{displayTitle}</CardTitle>
+                  <CardHeader className="pb-2 sm:pb-3 md:pb-4 px-3 sm:px-4 md:px-6 pt-3 sm:pt-4 md:pt-6">
+                    <CardTitle className="line-clamp-1 text-sm sm:text-base md:text-lg font-semibold">{displayTitle}</CardTitle>
                   </CardHeader>
                 </Card>
               </motion.div>
@@ -240,11 +240,11 @@ export default function StoryBookPlaza() {
           </div>
 
           {(!loading && filtered.length===0) && (
-            <div className="text-center py-12">
-              <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No results</h3>
-              <p className="text-muted-foreground mb-4">Try adjusting your search or filters</p>
-              <Button onClick={()=> router.refresh() }>Refresh</Button>
+            <div className="text-center py-8 sm:py-12">
+              <BookOpen className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground mx-auto mb-3 sm:mb-4" />
+              <h3 className="text-base sm:text-lg font-semibold mb-2">No results</h3>
+              <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4">Try adjusting your search or filters</p>
+              <Button onClick={()=> router.refresh() } className="text-sm sm:text-base">Refresh</Button>
             </div>
           )}
         </div>

@@ -58,12 +58,12 @@ export default function FlipBook({ pages, width = 600, height = 500, onFlip }: {
                   </div>
                 ) : (
                   <div 
-                    className="relative flex items-start justify-start h-full bg-gradient-to-br from-amber-50 to-white rounded-md shadow-inner w-full"
+                    className="relative flex flex-col h-full bg-gradient-to-br from-amber-50 to-white rounded-md shadow-inner w-full"
                     style={{
-                      paddingTop: Math.max(32, Math.floor((height || 500) * 0.08)), // 增加顶部边距
+                      paddingTop: Math.max(20, Math.floor((height || 500) * 0.04)), // 进一步减少顶部边距
                       paddingRight: 32,
                       paddingLeft: 32,
-                      paddingBottom: Math.max(24, Math.floor((height || 500) * 0.06)),
+                      paddingBottom: Math.max(20, Math.floor((height || 500) * 0.04)), // 减少底部边距
                     }}
                   >
                     {(() => {
@@ -72,12 +72,26 @@ export default function FlipBook({ pages, width = 600, height = 500, onFlip }: {
                       // 检测是否为英文内容（简单判断：非中文字符占比 > 70%）
                       const isEnglish = (raw.match(/[a-zA-Z]/g)?.length || 0) / Math.max(plainLen, 1) > 0.7;
                       
-                      // 动态字号与行高：内容少 → 字号大；内容多 → 字号小
+                      // 根据内容长度和页面高度动态调整字号，让内容更好地填充页面
                       let sizeCls = "text-base leading-[1.8]";
-                      if (plainLen <= 80) sizeCls = "text-lg leading-[2.0]";
-                      else if (plainLen <= 160) sizeCls = "text-base leading-[1.8]";
-                      else if (plainLen <= 280) sizeCls = "text-sm leading-[1.7]";
-                      else sizeCls = "text-xs leading-[1.6]";
+                      const pageHeight = height || 500;
+                      const availableHeight = pageHeight - (Math.max(24, Math.floor(pageHeight * 0.05)) * 2);
+                      const estimatedLines = Math.ceil(plainLen / (isEnglish ? 50 : 30));
+                      const lineHeight = isEnglish ? 1.8 : 1.7;
+                      const totalTextHeight = estimatedLines * (sizeCls.includes('text-lg') ? 28 : sizeCls.includes('text-base') ? 24 : sizeCls.includes('text-sm') ? 20 : 16) * lineHeight;
+                      
+                      // 如果内容较少，增大字号以填充页面
+                      if (totalTextHeight < availableHeight * 0.4) {
+                        if (plainLen <= 100) sizeCls = "text-xl leading-[2.2]";
+                        else if (plainLen <= 200) sizeCls = "text-lg leading-[2.0]";
+                        else sizeCls = "text-base leading-[1.8]";
+                      } else if (plainLen <= 160) {
+                        sizeCls = "text-base leading-[1.8]";
+                      } else if (plainLen <= 280) {
+                        sizeCls = "text-sm leading-[1.7]";
+                      } else {
+                        sizeCls = "text-xs leading-[1.6]";
+                      }
                       
                       // 英文书籍排版：serif 字体、左对齐、段落间距（无首行缩进）、适当的字间距
                       const textStyle = isEnglish 

@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
         user_id: user.id,
         product_type: "credits",
         credits,
+        product_id: productId, // Add product_id to metadata for bonus calculation
       },
     };
 
