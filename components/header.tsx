@@ -45,6 +45,7 @@ export default function Header({ user }: HeaderProps) {
     { label: "Home", href: "/" },
     { label: "Create", href: "/create-story-book" },
     { label: "Story Book", href: "/story-book" },
+    { label: "Children's Stories", href: "/children-stories" },
     { label: "Price", href: "/credits" },
     // { label: "Photo to Coloring", href: "/photo-to-coloring" }, // Hidden temporarily
   ];

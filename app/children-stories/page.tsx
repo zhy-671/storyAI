@@ -235,3 +235,5 @@ export default function ChildrenStoriesPage() {
     </div>
   );
 }
+
+export default ChildrenStoriesPage;
