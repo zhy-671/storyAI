@@ -1,296 +1,280 @@
-# Raphael Starter Kit
+# Story AI - Interactive AI Story Generator & Writer
 
-这是一个面向编程小白的现代化启动套件，基于 Next.js、Supabase 和 Creem.io 构建。专为帮助开发者快速搭建支持全球用户登录和支付的网站，特别对中国大陆开发者友好。
+🌐 **Website**: [https://storyai.pro](https://storyai.pro)
 
-## 🌟 简介
+Story AI 是一个强大的 AI 故事生成平台，帮助用户快速创建个性化的互动故事、儿童故事书、奇幻冒险、浪漫小说等多种类型的故事内容。通过先进的 AI 技术，几分钟内生成完整的故事书，包含文字内容和精美的插图。
 
-这是一个基于 Next.js、Supabase 和 Creem.io 构建的现代化、生产就绪的启动套件。非常适合快速构建具有身份验证、订阅和积分系统的 SaaS 应用程序，让您的 MVP 开发速度提升10倍。
+## 🌟 核心功能
 
-## 核心特色功能
+### ✨ AI 故事生成
+- **多类型支持**：儿童故事、奇幻冒险、浪漫小说、恐怖悬疑、推理犯罪等
+- **智能创作**：基于主题和提示词，自动生成完整的故事内容、角色设定和情节发展
+- **插图生成**：自动为每个场景生成详细的插图描述，支持多种艺术风格（水彩、绘本、油画等）
+- **个性化定制**：支持自定义故事主题、角色、情节走向
 
-- 💯 **精美的用户界面**
-  - 经过精心设计的现代化界面
-  - 优雅的响应式设计，在各种设备上呈现完美体验
-  - 平滑的动画和过渡效果
-  - 精心优化的布局和组件排列
-  - 专业的色彩方案和排版
+### 📚 故事书管理
+- **故事广场**：浏览和阅读社区创作的 AI 故事书
+- **个人作品集**：管理自己创建的所有故事书
+- **故事详情页**：精美的翻页阅读体验，支持全屏阅读
 
-- 🚀 **Next.js App Router**
-  - 使用最新的 Next.js 功能
-  - 服务器组件和客户端组件的最佳组合
-  - 内置的路由保护
-  - 快速的页面加载和导航体验
+### 🎨 视觉功能
+- **多种图片风格**：水彩、绘本、油画、素描等艺术风格选择
+- **响应式设计**：完美适配手机、平板和桌面设备
+- **3D 翻页效果**：沉浸式的故事书阅读体验
 
-- 🔐 **全面的身份验证系统**
-  - 基于 Supabase
-  - 电子邮件/密码认证
-  - OAuth 提供商支持 (Google, GitHub等)
-  - 安全的会话管理
-  - 使用中间件保护路由
-  
-- 💳 **完整的支付与订阅系统**
-  - 与 Creem.io 完美集成，支持全球信用卡收款 
-  - 特别适合中国大陆用户作为商家使用
-  - 多级订阅方案
-  - 灵活的积分系统
-  - 详细的使用量跟踪
+### 💳 订阅与积分系统
+- **灵活付费**：支持一次性积分购买和月度/年度订阅
+- **积分系统**：使用积分生成故事，每生成一个故事消耗相应积分
+- **订阅管理**：自动续费、取消订阅、查看订阅状态
 
-- 🇨🇳 **AI中文名字生成器**
-  - 基于OpenAI/OpenRouter的智能名字生成
-  - 个性化分析和文化匹配
-  - 免费试用和付费增强功能
-  - 完整的字符解释和文化背景
-  - 流行名字展示和收藏功能
+### 🔐 用户系统
+- **安全认证**：基于 Supabase 的身份验证系统
+- **Google OAuth**：支持 Google 账号快速登录
+- **邮箱注册**：传统的邮箱密码注册方式
 
-- 🛠️ **开发者友好**
-  - TypeScript 类型安全
-  - 清晰的项目结构
-  - 完善的文档
-  - Cursor编辑器友好框架
+## 🚀 技术栈
 
-## 📱 响应式设计
+### 前端框架
+- **Next.js 15** (App Router) - 最新的 React 框架
+- **React 19** - 最新版本的 React
+- **TypeScript** - 类型安全的开发体验
+- **Tailwind CSS** - 实用优先的 CSS 框架
+- **Framer Motion** - 流畅的动画效果
+- **shadcn/ui** - 现代化的 UI 组件库
 
-Raphael Starter Kit 采用了全面的响应式设计，确保您的应用在任何设备上都能完美呈现：
+### 后端服务
+- **Supabase** - 数据库、认证和实时功能
+- **Creem.io** - 支付处理和订阅管理
+- **火山引擎 TOS** - 对象存储服务（图片存储）
+- **OpenAI/OpenRouter** - AI 内容生成
 
-- 手机端优化的导航和布局
-- 平板电脑友好的交互设计
-- 桌面端的高效工作流
-- 精确的组件间距和对齐
+### 开发工具
+- **ESLint** - 代码质量检查
+- **PostCSS** - CSS 处理
+- **Autoprefixer** - CSS 兼容性处理
 
-## 🎨 UI 组件库
-
-我们的启动套件包含了丰富的预构建组件，帮助您快速组装精美的界面：
-
-- 现代化的导航栏和页脚
-- 引人注目的英雄区域
-- 特色功能展示组件
-- 专业的徽标云展示
-- 灵活的FAQ手风琴组件
-- 精美的定价卡片
-- 引人注目的行动号召按钮
-- 引导用户的清晰路径
-
-## 快速开始
+## 📦 快速开始
 
 ### 前提条件
 
-- Node.js 18+ 和 npm
+- Node.js 18+ 
+- npm 或 yarn
 - Supabase 账户
 - Creem.io 账户
+- 火山引擎 TOS 账户（可选，用于图片存储）
 
-### 步骤 1: 克隆仓库
+### 安装步骤
 
+1. **克隆项目**
 ```bash
-git clone https://github.com/yourusername/raphael-starter-kit.git
-cd raphael-starter-kit
+git clone <your-repo-url>
+cd storyai
 ```
 
-### 步骤 2: 安装依赖
-
+2. **安装依赖**
 ```bash
-npm i
+npm install
 ```
 
-### 步骤 3: 设置 Supabase
+3. **配置环境变量**
 
-1. 在 [Supabase](https://app.supabase.com) 上创建一个新项目
-   - 点击"新建项目"
-   - 填写基本信息（项目名称、密码等）
+创建 `.env.local` 文件：
 
-2. 前往 项目设置 > API 获取项目凭证
-   - 从项目设置页面复制凭证信息
-   - 将凭证粘贴到.env文件中
+```env
+# Supabase 配置
+NEXT_PUBLIC_SUPABASE_URL=你的supabase项目URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY=你的supabase匿名密钥
+SUPABASE_SERVICE_ROLE_KEY=你的supabase服务角色密钥
 
-3. 配置登录认证
-   - 选择【Auth】>【Providers】
-   - 选择email认证
-   - 关闭"Confirm email"选项并保存设置
+# Creem.io 配置
+CREEM_WEBHOOK_SECRET=你的webhook密钥
+CREEM_API_KEY=你的creem API密钥
+CREEM_API_URL=https://api.creem.io/v1
+CREEM_SUCCESS_URL=https://storyai.pro/credits
 
-4. (可选) 设置Google登录
-   - 进入[Google 开发者控制台](https://console.cloud.google.com)，创建新项目
-   - 配置项目权限
-   - 前往【API与服务】>【凭据】
-   - 创建OAuth客户端ID
-   - 添加授权来源URL和重定向URI
-   - 重定向URI格式: `https://<项目ID>.supabase.co/auth/v1/callback`
-   - 复制OAuth客户端ID和密钥
+# 站点配置
+NEXT_PUBLIC_SITE_URL=https://storyai.pro
 
-5. 在Supabase配置Google认证
-   - 打开Auth > Providers > Google
-   - 填写从Google开发者控制台获取的客户端ID和密钥
-   - 启用Google认证
+# 火山引擎 TOS 配置（可选）
+VOLC_TOS_ACCESS_KEY_ID=你的访问密钥ID
+VOLC_TOS_SECRET_ACCESS_KEY=你的秘密访问密钥
+VOLC_TOS_REGION=cn-beijing
+VOLC_TOS_ENDPOINT=https://tos-cn-beijing.volces.com
+VOLC_TOS_BUCKET=你的bucket名称
+VOLC_TOS_PUBLIC_BASE_URL=https://你的CDN域名
+```
 
-6. 设置定向URL
-   - 将定向URL更改为您的线上地址
-   - 确保URL与Google开发者控制台中的地址完全一致
+4. **设置 Supabase 数据库**
 
-7. 设置环境变量
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   在`.env.local`中更新Supabase变量:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=你的项目URL
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=你的匿名密钥
-   SUPABASE_SERVICE_ROLE_KEY=你的服务角色密钥
-   ```
+运行数据库迁移脚本（在 `supabase/migrations/` 目录下）：
+- 创建必要的表结构（storybooks, customers, subscriptions, credits_history 等）
+- 配置 Row Level Security (RLS) 策略
+- 设置必要的索引
 
-8. 创建数据库表结构
-   - 复制SQL代码到Supabase SQL编辑器
-   - 执行SQL创建必要的表结构
+5. **配置 Creem.io Webhook**
 
-### 步骤 4: 设置 Creem.io
+在 Creem.io 后台配置 Webhook URL：
+```
+https://storyai.pro/api/webhooks/creem
+```
 
-1. 登录到 [Creem.io 仪表板](https://www.creem.io/)
-2. 初始设置
-   - 打开测试模式
-   - 导航到顶部导航栏中的"开发者"部分
-   - 复制API Key并粘贴到.env文件中
-
-3. 创建Webhooks
-   - 前往开发者 > Webhooks
-   - 创建新的Webhook
-   - 填写URL: `https://你的域名/api/webhooks/creem`
-   - 复制Webhook密钥并粘贴到.env文件中
-
-4. 更新环境变量
-   ```
-   CREEM_API_URL=https://test-api.creem.io/v1
-   ```
-
-5. 创建收费项目
-   - 在Creem.io中创建订阅项目和积分项目
-   - 复制项目ID并配置到代码中
-
-6. 完整的环境变量示例
-   ```
-   # Supabase配置
-   NEXT_PUBLIC_SUPABASE_URL=你的supabaseURL
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=你的supabase pubilc key
-   SUPABASE_SERVICE_ROLE_KEY=你的supabase SERVICE_ROLE key
-
-   # Creem配置
-   CREEM_WEBHOOK_SECRET=你的webhook key
-   CREEM_API_KEY=你的creem key
-   CREEM_API_URL=https://test-api.creem.io/v1
-
-   # 站点URL配置
-   NEXT_PUBLIC_SITE_URL=http://你的线上地址
-   
-   # 支付成功后的重定向URL
-   CREEM_SUCCESS_URL=http://你的线上地址/dashboard
-
-   # 火山引擎 TOS（对象存储）配置（用于将生成的图片上传并返回真实路径）
-   VOLC_TOS_ACCESS_KEY_ID=你的AK
-   VOLC_TOS_SECRET_ACCESS_KEY=你的SK
-   VOLC_TOS_REGION=cn-beijing
-   VOLC_TOS_ENDPOINT=https://tos-cn-beijing.volces.com
-   VOLC_TOS_BUCKET=你的bucket名称
-   # 可选：绑定的CDN/自定义域名，返回的公开URL将使用该域名
-   VOLC_TOS_PUBLIC_BASE_URL=https://你的自定义域名
-   ```
-
-### 步骤 5: 运行开发服务器
-
+6. **运行开发服务器**
 ```bash
 npm run dev
 ```
 
-访问 [http://localhost:3000](http://localhost:3000) 查看你的应用程序。
+访问 [http://localhost:3000](http://localhost:3000) 查看应用。
 
-### 步骤 6: Vercel部署
+## 🏗️ 项目结构
 
-1. 将代码推送到GitHub
-2. 将仓库导入到[Vercel](https://vercel.com)
-3. 添加所有环境变量
+```
+storyai/
+├── app/                          # Next.js App Router
+│   ├── (auth-pages)/            # 认证相关页面
+│   │   ├── sign-in/            # 登录页面
+│   │   ├── sign-up/            # 注册页面
+│   │   └── forgot-password/    # 忘记密码
+│   ├── api/                    # API 路由
+│   │   ├── storybook/          # 故事生成 API
+│   │   ├── storybooks/         # 故事书管理 API
+│   │   ├── credits/            # 积分相关 API
+│   │   ├── subscription/       # 订阅相关 API
+│   │   └── webhooks/creem/     # Creem Webhook 处理
+│   ├── create-story-book/      # 故事创建页面
+│   ├── story-book/             # 故事书浏览和详情
+│   ├── dashboard/              # 用户仪表板
+│   ├── credits/                # 积分购买页面
+│   └── layout.tsx              # 根布局
+├── components/                  # React 组件
+│   ├── ui/                     # shadcn/ui 组件
+│   ├── book/                   # 故事书相关组件
+│   └── dashboard/              # 仪表板组件
+├── hooks/                      # 自定义 React Hooks
+│   ├── use-user.ts            # 用户状态管理
+│   ├── use-credits.ts          # 积分管理
+│   └── use-subscription.ts     # 订阅管理
+├── utils/                      # 工具函数
+│   ├── supabase/              # Supabase 客户端和工具
+│   ├── creem/                 # Creem 支付工具
+│   └── storage/               # 存储工具（TOS）
+├── types/                      # TypeScript 类型定义
+├── public/                     # 静态资源
+│   ├── images/                # 图片资源
+│   └── samples/               # 示例文件
+└── supabase/                   # 数据库迁移脚本
+    └── migrations/            # SQL 迁移文件
+```
+
+## 🔧 核心功能实现
+
+### 故事生成流程
+
+1. **用户输入**：提供故事主题、类型、目标读者等信息
+2. **AI 生成**：调用 AI 模型生成故事内容（标题、摘要、场景、插图描述）
+3. **图片生成**：根据插图描述生成对应的图片
+4. **存储保存**：将故事数据保存到 Supabase 数据库
+5. **展示阅读**：以精美的翻页形式展示故事书
+
+### 支付与订阅
+
+- **积分购买**：用户购买积分，用于生成故事
+- **订阅服务**：月度/年度订阅，自动获得积分
+- **Webhook 处理**：自动处理支付成功、订阅激活等事件
+- **积分记录**：完整的积分交易历史记录
+
+### SEO 优化
+
+- **结构化数据**：Organization、WebPage、Article、FAQPage Schema
+- **Breadcrumb 导航**：带 Schema.org 标记的面包屑导航
+- **Sitemap**：自动生成的动态网站地图
+- **robots.txt**：优化的搜索引擎爬虫规则
+- **Meta 标签**：每个页面都有针对性的 SEO 元标签
+
+## 📱 响应式设计
+
+- **移动端优化**：完全响应式的移动端界面
+- **平板适配**：针对平板设备的优化布局
+- **桌面端体验**：大屏幕设备的最佳展示效果
+
+## 🎯 主要页面
+
+- **首页** (`/`) - 产品介绍和功能展示
+- **创建故事** (`/create-story-book`) - AI 故事生成器
+- **故事广场** (`/story-book`) - 浏览社区故事
+- **故事详情** (`/story-book/[slug]`) - 阅读单个故事
+- **积分中心** (`/credits`) - 购买积分和订阅
+- **用户仪表板** (`/dashboard`) - 管理个人作品和账户
+
+## 🔒 安全特性
+
+- **Row Level Security (RLS)**：数据库级别的安全策略
+- **Webhook 签名验证**：确保支付回调的安全性
+- **环境变量保护**：敏感信息存储在环境变量中
+- **OAuth 安全**：标准化的 OAuth 2.0 流程
+
+## 📊 性能优化
+
+- **Next.js Image 优化**：自动图片压缩和格式转换（WebP/AVIF）
+- **CSS 优化**：关键 CSS 内联，延迟加载非关键样式
+- **代码分割**：自动代码分割和懒加载
+- **LCP 优化**：移除关键元素的动画延迟，提升首屏加载速度
+
+## 🌐 部署
+
+### Vercel 部署（推荐）
+
+1. 将代码推送到 GitHub
+2. 在 [Vercel](https://vercel.com) 导入项目
+3. 配置环境变量
 4. 完成部署
 
-### 步骤 7: 更新Webhook回调地址
+### 其他平台
 
-1. 进入Creem.io，打开开发者模式
-2. 更新Webhooks配置
-   - 进入对应的Webhook设置
-   - 点击"更多"，选择"编辑"
-   - 将线上地址更新为: `https://你的域名/api/webhooks/creem`
+项目支持部署到任何支持 Next.js 的平台：
+- Vercel
+- Netlify
+- Railway
+- 自有服务器（需要 Node.js 环境）
 
-### 步骤 8: 测试系统功能
+## 📝 开发指南
 
-1. 测试用户登录功能
-2. 测试订阅支付功能（测试信用卡号: 4242 4242 4242 4242）
-3. 测试积分购买功能
+### 添加新功能
 
-### 步骤 9: 设计网站首页
+1. 遵循现有的文件结构
+2. 使用 TypeScript 确保类型安全
+3. 遵循 Tailwind CSS 样式规范
+4. 添加适当的错误处理
+5. 更新相关文档
 
-1. 使用组件库
-   - 您可以使用[TailwindCSS](https://tailwindcss.com)上的组件
-   - 复制代码到相应的组件文件中
+### 代码规范
 
-2. 自定义页面配色
-   - 调整全局色系
-   - 将样式代码添加到全局CSS文件中
+- 使用 TypeScript 进行类型检查
+- 组件使用函数式组件和 Hooks
+- 变量和函数使用 camelCase，组件使用 PascalCase
+- 保持代码简洁和可读性
 
-3. 根据需要精修页面布局
+## 🤝 贡献
 
-### 步骤 10: 切换到正式付款
+欢迎提交 Issue 和 Pull Request！
 
-1. 进入Creem.io，关闭测试模式
-2. 创建新的正式项目，将ID更新到代码中
-3. 更新环境变量，将API URL从测试环境切换到正式环境:
-   ```
-   # 将此行
-   CREEM_API_URL=https://test-api.creem.io/v1
-   
-   # 替换为
-   CREEM_API_URL=https://api.creem.io
-   ```
+## 📄 许可证
 
-## 💳 订阅系统详情
+[添加您的许可证信息]
 
-启动套件包含由 Creem.io 提供支持的完整订阅系统：
+## 🔗 相关链接
 
-- 多级订阅方案
-- 基于使用量的计费
-- 积分系统
-- 订阅管理
-- 安全支付处理
-- Webhook 集成实时更新
-- 自动发票生成
-- 全球支付支持（特别适合中国大陆商家）
+- **官方网站**: [https://storyai.pro](https://storyai.pro)
+- **Supabase**: [https://supabase.com](https://supabase.com)
+- **Creem.io**: [https://creem.io](https://creem.io)
+- **Next.js 文档**: [https://nextjs.org/docs](https://nextjs.org/docs)
 
-### 设置 Webhooks
+## 📧 联系我们
 
-处理订阅更新和支付事件:
+如有问题或建议，请通过以下方式联系：
 
-1. 前往 Creem.io 仪表板
-2. 导航到 开发者 > Webhooks
-3. 添加你的 webhook 端点: `https://your-domain.com/api/webhooks/creem`
-4. 复制 webhook 密钥并添加到你的 `.env.local`:
-   ```
-   CREEM_WEBHOOK_SECRET=你的webhook密钥
-   ```
+- 网站: [https://storyai.pro](https://storyai.pro)
+- 邮箱: [添加您的联系邮箱]
 
-## 项目结构
+---
 
-```
-├── app/                   # Next.js 应用目录
-│   ├── (auth-pages)/     # 身份验证页面
-│   ├── dashboard/        # 仪表板页面
-│   ├── api/             # API 路由
-│   └── layout.tsx       # 根布局
-├── components/           # React 组件
-│   ├── ui/             # Shadcn/ui 组件
-│   ├── dashboard/      # 仪表板组件
-│   └── home/          # 登陆页面组件
-│   └── layout/        # 页面布局组件
-├── hooks/               # 自定义 React 钩子
-├── lib/                # 工具库
-├── public/             # 静态资源
-├── styles/             # 全局样式
-├── types/              # TypeScript 类型
-└── utils/              # 工具函数
-```
-
-## 支持与联系
-
-如果您有任何问题或需要支持，请通过微信联系我们。
+**Story AI** - 用 AI 创造无限故事可能 ✨
