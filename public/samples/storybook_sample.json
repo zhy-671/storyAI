@@ -1,0 +1,48 @@
+{
+  "title": "废墟里的星星灯",
+  "summary": "小奥黛尔在废墟中找到温暖，学会勇敢与珍惜",
+  "scenes": [
+    "小奥黛尔攥紧爷爷给的旧指南针，望着长满青苔的废墟入口，心跳得像小鼓，但脚步没有后退。",
+    "墙缝里钻出的小野花，在灰扑扑的废墟里眨着眼睛，奥黛尔蹲下来轻轻碰了碰花瓣，好像没那么害怕了。",
+    "一只缺了耳朵的小熊布偶躺在碎石上，奥黛尔把它捡起来拍掉灰尘，小熊的眼睛好像还在笑。",
+    "滴答滴答，废墟深处传来轻轻的声响，奥黛尔鼓起勇气，朝着声音的方向走去。",
+    "墙洞里藏着一盏星星形状的灯，轻轻一碰，它就发出暖黄色的光，照亮了整个小角落。",
+    "奥黛尔把星星灯挂在背包上，抱着小熊走出废墟，夕阳把她的影子拉得长长的，心里装满了温暖。"
+  ],
+  "scenes_detail": [
+    "图片1：远景，废墟入口被绿色藤蔓缠绕，阳光透过藤蔓缝隙洒下斑驳光点。奥黛尔穿着蓝色背带裤，背着小背包，双手攥紧指南针，眉头微蹙但眼神坚定，站在入口前。色调：灰绿与暖黄交织，营造既神秘又充满希望的氛围。",
+    "图片2：中景，奥黛尔蹲在倒塌的砖墙旁，手指轻触一朵粉色小野花。野花从碎石缝中钻出，周围散落着碎玻璃和砖块。光影柔和，野花的粉色与废墟的灰色形成鲜明对比，奥黛尔的表情由紧张转为柔和。",
+    "图片3：特写，奥黛尔的手捧着一只棕色小熊布偶，布偶缺了一只耳朵，身上沾着灰尘。奥黛尔的眼睛弯成月牙，嘴角微微上扬，阳光照在她和布偶身上，显得温暖治愈。背景是模糊的废墟墙面。",
+    "图片4：中景，奥黛尔背着背包，怀里抱着小熊，走向废墟深处的黑暗走廊。走廊尽头有微弱的光，奥黛尔的表情专注而勇敢，脚步稳稳向前。光影：前方暖光与后方阴影形成对比，突出探索感。",
+    "图片5：近景，奥黛尔的手指触碰墙洞里的星星灯，灯瞬间发出暖黄色的光芒，照亮了她惊喜的脸庞。星星灯的光芒在空气中散开，周围的灰尘颗粒在光中跳舞。奥黛尔的眼睛亮晶晶的，充满好奇与喜悦。",
+    "图片6：远景，奥黛尔背着背包（星星灯挂在包上发光），抱着小熊，走在夕阳下的小路上。她的影子被拉得很长，脚步轻快。天空是橙红色的，周围是绿色的草地。色调温暖，充满成就感与希望。"
+  ],
+  "images": [
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717713497ba1a3a4f2ac356ab309f530e957a96d95ebed8_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717720527fe1320db4619772e3f2bdf4726cf24b043159b_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/02176171772782392e83432a2b181bcb6937ec7e925541326fe0e_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717735926afbca1eef641bb2e322f9b6456388103a68524_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/0217617177426746878bc4002d5738785e1bec3dfd2141111bf1a_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/02176171775066436723dfe7dba78ed5ef728a9db08b015abc9c7_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717760481061d89d71b58a349ae2490aa1417ae8715bd93_0.jpeg"
+  ],
+  "coverImage": "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717713497ba1a3a4f2ac356ab309f530e957a96d95ebed8_0.jpeg",
+  "pageImages": [
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717720527fe1320db4619772e3f2bdf4726cf24b043159b_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/02176171772782392e83432a2b181bcb6937ec7e925541326fe0e_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717735926afbca1eef641bb2e322f9b6456388103a68524_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/0217617177426746878bc4002d5738785e1bec3dfd2141111bf1a_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/02176171775066436723dfe7dba78ed5ef728a9db08b015abc9c7_0.jpeg",
+    "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717760481061d89d71b58a349ae2490aa1417ae8715bd93_0.jpeg"
+  ],
+  "pages": [
+    { "index": 1, "text": "小奥黛尔攥紧爷爷给的旧指南针，望着长满青苔的废墟入口，心跳得像小鼓，但脚步没有后退。", "detail": "图片1：远景，废墟入口被绿色藤蔓缠绕，阳光透过藤蔓缝隙洒下斑驳光点。奥黛尔穿着蓝色背带裤，背着小背包，双手攥紧指南针，眉头微蹙但眼神坚定，站在入口前。色调：灰绿与暖黄交织，营造既神秘又充满希望的氛围。", "image": "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717720527fe1320db4619772e3f2bdf4726cf24b043159b_0.jpeg" },
+    { "index": 2, "text": "墙缝里钻出的小野花，在灰扑扑的废墟里眨着眼睛，奥黛尔蹲下来轻轻碰了碰花瓣，好像没那么害怕了。", "detail": "图片2：中景，奥黛尔蹲在倒塌的砖墙旁，手指轻触一朵粉色小野花。野花从碎石缝中钻出，周围散落着碎玻璃和砖块。光影柔和，野花的粉色与废墟的灰色形成鲜明对比，奥黛尔的表情由紧张转为柔和。", "image": "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/02176171772782392e83432a2b181bcb6937ec7e925541326fe0e_0.jpeg" },
+    { "index": 3, "text": "一只缺了耳朵的小熊布偶躺在碎石上，奥黛尔把它捡起来拍掉灰尘，小熊的眼睛好像还在笑。", "detail": "图片3：特写，奥黛尔的手捧着一只棕色小熊布偶，布偶缺了一只耳朵，身上沾着灰尘。奥黛尔的眼睛弯成月牙，嘴角微微上扬，阳光照在她和布偶身上，显得温暖治愈。背景是模糊的废墟墙面。", "image": "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717735926afbca1eef641bb2e322f9b6456388103a68524_0.jpeg" },
+    { "index": 4, "text": "滴答滴答，废墟深处传来轻轻的声响，奥黛尔鼓起勇气，朝着声音的方向走去。", "detail": "图片4：中景，奥黛尔背着背包，怀里抱着小熊，走向废墟深处的黑暗走廊。走廊尽头有微弱的光，奥黛尔的表情专注而勇敢，脚步稳稳向前。光影：前方暖光与后方阴影形成对比，突出探索感。", "image": "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/0217617177426746878bc4002d5738785e1bec3dfd2141111bf1a_0.jpeg" },
+    { "index": 5, "text": "墙洞里藏着一盏星星形状的灯，轻轻一碰，它就发出暖黄色的光，照亮了整个小角落。", "detail": "图片5：近景，奥黛尔的手指触碰墙洞里的星星灯，灯瞬间发出暖黄色的光芒，照亮了她惊喜的脸庞。星星灯的光芒在空气中散开，周围的灰尘颗粒在光中跳舞。奥黛尔的眼睛亮晶晶的，充满好奇与喜悦。", "image": "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/02176171775066436723dfe7dba78ed5ef728a9db08b015abc9c7_0.jpeg" },
+    { "index": 6, "text": "奥黛尔把星星灯挂在背包上，抱着小熊走出废墟，夕阳把她的影子拉得长长的，心里装满了温暖。", "detail": "图片6：远景，奥黛尔背着背包（星星灯挂在包上发光），抱着小熊，走在夕阳下的小路上。她的影子被拉得很长，脚步轻快。天空是橙红色的，周围是绿色的草地。色调温暖，充满成就感与希望。", "image": "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/021761717760481061d89d71b58a349ae2490aa1417ae8715bd93_0.jpeg" }
+  ]
+}
+
+
